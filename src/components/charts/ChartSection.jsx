@@ -64,8 +64,8 @@ export default function ChartSection() {
         >
           <h3 className="chart-title">Weather-Yield Correlations</h3>
           <p className="chart-desc">
-            Which weather features matter most for predicting yield? Bars show Random Forest feature importance,
-            colored by direction of correlation. Red = <em>reduces</em> yield. Green = increases yield.
+            Which weather features matter most? Left: factors that <strong>help</strong> yield. Right: factors that <em>hurt</em> yield.
+            Bar height = Random Forest feature importance (how much the model relies on it).
             Based on 480 state-year observations with 76 million daily weather records.
           </p>
           <CorrelationChart />

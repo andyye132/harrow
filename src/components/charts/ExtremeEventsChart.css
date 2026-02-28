@@ -1,14 +1,14 @@
 .extreme-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  gap: 16px;
 }
 
 .extreme-card {
   background: var(--bg-tertiary);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 18px 20px;
+  padding: 20px 22px;
   border-top: 3px solid var(--border);
 }
 
@@ -28,10 +28,14 @@
 }
 
 .extreme-event-name {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.3px;
+}
+
+.extreme-event-crop {
+  font-size: 15px;
 }
 
 .extreme-event-year {
@@ -42,12 +46,13 @@
   padding: 3px 10px;
   border-radius: 12px;
   border: 1px solid var(--border);
+  flex-shrink: 0;
 }
 
 .extreme-stat-row {
   display: flex;
   gap: 16px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .extreme-stat {
@@ -83,11 +88,31 @@
   margin-top: 2px;
 }
 
+/* Weather chips */
+.extreme-weather-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.extreme-weather-chip {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 3px 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* Progress bar */
 .extreme-bar-track {
   height: 6px;
   background: var(--bg-card);
   border-radius: 3px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   overflow: hidden;
 }
 
@@ -105,10 +130,71 @@
   background: var(--success);
 }
 
-.extreme-desc {
+/* Rich context */
+.extreme-context {
+  margin-bottom: 12px;
+}
+
+.extreme-weather-desc {
   font-size: 12px;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.extreme-why-desc {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  padding: 8px 10px;
+  background: var(--bg-card);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+/* Affected states */
+.extreme-affected {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  align-items: baseline;
+  font-size: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.extreme-affected-label {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-right: 4px;
+}
+
+.extreme-affected-state {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.extreme-affected-state .neg {
+  color: var(--danger);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.extreme-affected-state .pos {
+  color: var(--success);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.extreme-affected-yield {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
 }
 
 .extreme-empty {

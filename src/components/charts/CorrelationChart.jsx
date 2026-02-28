@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, Cell, ReferenceLine
+  ResponsiveContainer, Cell
 } from 'recharts';
 import useStore from '../../store/useStore';
 
@@ -39,9 +39,9 @@ export default function CorrelationChart() {
       .catch(() => {});
   }, []);
 
-  const chartData = useMemo(() => {
-    if (!correlations?.[chartCrop]) return [];
-    return Object.entries(correlations[chartCrop])
+  const { positive, negative } = useMemo(() => {
+    if (!correlations?.[chartCrop]) return { positive: [], negative: [] };
+    const all = Object.entries(correlations[chartCrop])
       .map(([feature, data]) => ({
         feature,
         name: FEATURE_LABELS[feature] || feature,
@@ -50,8 +50,12 @@ export default function CorrelationChart() {
         significant: data.significant,
         importance: featureImportance?.[chartCrop]?.importances?.[feature] || 0,
         impPct: ((featureImportance?.[chartCrop]?.importances?.[feature] || 0) * 100).toFixed(1),
-      }))
-      .sort((a, b) => b.importance - a.importance);
+      }));
+
+    return {
+      positive: all.filter(d => d.correlation > 0).sort((a, b) => b.importance - a.importance),
+      negative: all.filter(d => d.correlation <= 0).sort((a, b) => b.importance - a.importance),
+    };
   }, [correlations, featureImportance, chartCrop]);
 
   const modelStats = featureImportance?.[chartCrop];
@@ -75,53 +79,87 @@ export default function CorrelationChart() {
         </div>
       )}
 
-      {/* Vertical bar chart — sorted by RF importance */}
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={chartData} margin={{ top: 10, right: 10, bottom: 50, left: 10 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
-          <XAxis
-            dataKey="name"
-            stroke="var(--text-muted)"
-            fontSize={12}
-            fontFamily="var(--font-mono)"
-            tickLine={false}
-            angle={-30}
-            textAnchor="end"
-            height={60}
-          />
-          <YAxis
-            stroke="var(--text-muted)"
-            fontSize={11}
-            fontFamily="var(--font-mono)"
-            tickLine={false}
-            tickFormatter={(v) => `${v}%`}
-            width={45}
-            label={{
-              value: 'Feature Importance',
-              angle: -90,
-              position: 'insideLeft',
-              fontSize: 12,
-              fill: 'var(--text-secondary)',
-              fontFamily: 'var(--font-display)',
-              offset: -2,
-            }}
-          />
-          <Tooltip content={<CustomTooltip />} />
-          <Bar
-            dataKey="importance"
-            radius={[6, 6, 0, 0]}
-            barSize={40}
-          >
-            {chartData.map((entry, i) => (
-              <Cell
-                key={i}
-                fill={entry.correlation > 0 ? 'var(--success)' : 'var(--danger)'}
-                fillOpacity={entry.significant ? 0.85 : 0.35}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+        {/* Positive — helps yield */}
+        <div>
+          <h4 style={{ fontSize: 14, fontWeight: 700, color: 'var(--success)', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span style={{ fontSize: 16 }}>&#9650;</span> Helps Yield
+          </h4>
+          <ResponsiveContainer width="100%" height={220}>
+            <BarChart data={positive} margin={{ top: 5, right: 10, bottom: 40, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+              <XAxis
+                dataKey="name"
+                stroke="var(--text-muted)"
+                fontSize={11}
+                fontFamily="var(--font-mono)"
+                tickLine={false}
+                angle={-25}
+                textAnchor="end"
+                height={45}
               />
-            ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
+              <YAxis
+                stroke="var(--text-muted)"
+                fontSize={10}
+                fontFamily="var(--font-mono)"
+                tickLine={false}
+                tickFormatter={(v) => `${(v * 100).toFixed(0)}%`}
+                width={40}
+              />
+              <Tooltip content={<CustomTooltip />} />
+              <Bar dataKey="importance" radius={[6, 6, 0, 0]} barSize={36}>
+                {positive.map((entry, i) => (
+                  <Cell
+                    key={i}
+                    fill="var(--success)"
+                    fillOpacity={entry.significant ? 0.85 : 0.35}
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Negative — hurts yield */}
+        <div>
+          <h4 style={{ fontSize: 14, fontWeight: 700, color: 'var(--danger)', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span style={{ fontSize: 16 }}>&#9660;</span> Hurts Yield
+          </h4>
+          <ResponsiveContainer width="100%" height={220}>
+            <BarChart data={negative} margin={{ top: 5, right: 10, bottom: 40, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+              <XAxis
+                dataKey="name"
+                stroke="var(--text-muted)"
+                fontSize={11}
+                fontFamily="var(--font-mono)"
+                tickLine={false}
+                angle={-25}
+                textAnchor="end"
+                height={45}
+              />
+              <YAxis
+                stroke="var(--text-muted)"
+                fontSize={10}
+                fontFamily="var(--font-mono)"
+                tickLine={false}
+                tickFormatter={(v) => `${(v * 100).toFixed(0)}%`}
+                width={40}
+              />
+              <Tooltip content={<CustomTooltip />} />
+              <Bar dataKey="importance" radius={[6, 6, 0, 0]} barSize={36}>
+                {negative.map((entry, i) => (
+                  <Cell
+                    key={i}
+                    fill="var(--danger)"
+                    fillOpacity={entry.significant ? 0.85 : 0.35}
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
 
       <div className="correlation-legend">
         <span className="legend-item">
