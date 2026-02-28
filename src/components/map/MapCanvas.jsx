@@ -1,8 +1,42 @@
-import { Canvas } from '@react-three/fiber';
+import { useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { ContactShadows } from '@react-three/drei';
+import * as THREE from 'three';
 import USMap from './USMap';
 import MapCameraControls from './MapControls';
 import useStore from '../../store/useStore';
+
+/** Animated water plane with subtle wave motion */
+function WaterPlane({ isLight }) {
+  const meshRef = useRef();
+  const materialRef = useRef();
+
+  useFrame(({ clock }) => {
+    if (materialRef.current) {
+      // Subtle opacity shimmer
+      const t = clock.getElapsedTime();
+      materialRef.current.opacity = isLight ? 0.35 + Math.sin(t * 0.5) * 0.03 : 0.5 + Math.sin(t * 0.5) * 0.04;
+    }
+  });
+
+  return (
+    <mesh
+      ref={meshRef}
+      position={[0, -0.03, 0]}
+      rotation={[-Math.PI / 2, 0, 0]}
+    >
+      <planeGeometry args={[30, 30]} />
+      <meshStandardMaterial
+        ref={materialRef}
+        color={isLight ? '#93c5fd' : '#1e3a5f'}
+        transparent
+        opacity={isLight ? 0.35 : 0.5}
+        metalness={0.1}
+        roughness={0.6}
+      />
+    </mesh>
+  );
+}
 
 function SceneContent() {
   const setSelectedState = useStore(s => s.setSelectedState);
@@ -22,24 +56,22 @@ function SceneContent() {
       <pointLight position={[-5, 5, -5]} intensity={0.2} color="#8b5cf6" />
       <pointLight position={[3, 3, 3]} intensity={0.1} color="#a78bfa" />
 
+      {/* Water surface */}
+      <WaterPlane isLight={isLight} />
+
       <USMap />
       <MapCameraControls />
 
       <ContactShadows
         position={[0, -0.01, 0]}
-        opacity={isLight ? 0.2 : 0.3}
+        opacity={isLight ? 0.15 : 0.25}
         blur={2.5}
         far={8}
       />
 
-      <gridHelper
-        args={[20, 40, isLight ? '#d0d0d0' : '#1a1a1a', isLight ? '#e0e0e0' : '#141414']}
-        position={[0, -0.02, 0]}
-      />
-
       {/* Click on empty space to deselect */}
       <mesh
-        position={[0, -0.05, 0]}
+        position={[0, -0.06, 0]}
         rotation={[-Math.PI / 2, 0, 0]}
         onClick={() => setSelectedState(null)}
         visible={false}
@@ -53,7 +85,8 @@ function SceneContent() {
 
 export default function MapCanvas() {
   const theme = useStore(s => s.theme);
-  const bgColor = theme === 'light' ? '#f5f5f0' : '#0a0a0a';
+  // Ocean-tinted background
+  const bgColor = theme === 'light' ? '#dbeafe' : '#0c1929';
 
   return (
     <Canvas
