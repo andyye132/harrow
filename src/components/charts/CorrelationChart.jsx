@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import {
-  ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, ZAxis, Cell, ReferenceLine
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
+  ResponsiveContainer, Cell, ReferenceLine
 } from 'recharts';
 import useStore from '../../store/useStore';
 
@@ -9,9 +9,9 @@ const FEATURE_LABELS = {
   'growing_season_avg_temp': 'Avg Temp',
   'growing_season_max_temp': 'Max Temp',
   'growing_season_precip_mm': 'Precipitation',
-  'heat_stress_days': 'Heat Stress Days',
-  'max_dry_spell_days': 'Longest Dry Spell',
-  'heavy_rain_days': 'Heavy Rain Days',
+  'heat_stress_days': 'Heat Stress',
+  'max_dry_spell_days': 'Dry Spell',
+  'heavy_rain_days': 'Heavy Rain',
 };
 
 const FEATURE_DESCRIPTIONS = {
@@ -48,12 +48,8 @@ export default function CorrelationChart() {
         desc: FEATURE_DESCRIPTIONS[feature] || '',
         correlation: data.r,
         significant: data.significant,
-        strength: data.strength,
         importance: featureImportance?.[chartCrop]?.importances?.[feature] || 0,
-        // For scatter: x = correlation, y = importance, z = bubble size
-        x: data.r,
-        y: (featureImportance?.[chartCrop]?.importances?.[feature] || 0) * 100,
-        z: Math.abs(data.r) * 400 + 100,
+        impPct: ((featureImportance?.[chartCrop]?.importances?.[feature] || 0) * 100).toFixed(1),
       }))
       .sort((a, b) => b.importance - a.importance);
   }, [correlations, featureImportance, chartCrop]);
@@ -79,104 +75,66 @@ export default function CorrelationChart() {
         </div>
       )}
 
-      {/* Scatter: X = correlation, Y = RF importance, bubble = |correlation| */}
-      <ResponsiveContainer width="100%" height={320}>
-        <ScatterChart margin={{ top: 20, right: 30, bottom: 20, left: 20 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+      {/* Vertical bar chart — sorted by RF importance */}
+      <ResponsiveContainer width="100%" height={300}>
+        <BarChart data={chartData} margin={{ top: 10, right: 10, bottom: 50, left: 10 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
           <XAxis
-            type="number"
-            dataKey="x"
-            domain={[-0.6, 0.4]}
-            name="Correlation"
+            dataKey="name"
             stroke="var(--text-muted)"
-            fontSize={11}
+            fontSize={12}
             fontFamily="var(--font-mono)"
             tickLine={false}
-            label={{
-              value: 'Correlation with Yield (r)',
-              position: 'bottom',
-              fontSize: 12,
-              fill: 'var(--text-secondary)',
-              fontFamily: 'var(--font-display)',
-            }}
+            angle={-30}
+            textAnchor="end"
+            height={60}
           />
           <YAxis
-            type="number"
-            dataKey="y"
-            name="RF Importance"
             stroke="var(--text-muted)"
             fontSize={11}
             fontFamily="var(--font-mono)"
             tickLine={false}
             tickFormatter={(v) => `${v}%`}
+            width={45}
             label={{
-              value: 'RF Feature Importance (%)',
+              value: 'Feature Importance',
               angle: -90,
               position: 'insideLeft',
               fontSize: 12,
               fill: 'var(--text-secondary)',
               fontFamily: 'var(--font-display)',
-              offset: -5,
+              offset: -2,
             }}
           />
-          <ZAxis type="number" dataKey="z" range={[200, 800]} />
-          <ReferenceLine x={0} stroke="var(--text-muted)" strokeDasharray="3 3" />
-          <Tooltip
-            content={<CustomTooltip />}
-          />
-          <Scatter data={chartData}>
+          <Tooltip content={<CustomTooltip />} />
+          <Bar
+            dataKey="importance"
+            radius={[6, 6, 0, 0]}
+            barSize={40}
+          >
             {chartData.map((entry, i) => (
               <Cell
                 key={i}
                 fill={entry.correlation > 0 ? 'var(--success)' : 'var(--danger)'}
-                fillOpacity={entry.significant ? 0.8 : 0.3}
-                stroke={entry.correlation > 0 ? 'var(--success)' : 'var(--danger)'}
-                strokeWidth={1}
+                fillOpacity={entry.significant ? 0.85 : 0.35}
               />
             ))}
-          </Scatter>
-        </ScatterChart>
+          </Bar>
+        </BarChart>
       </ResponsiveContainer>
-
-      {/* Feature legend / table below */}
-      <div className="corr-feature-table">
-        {chartData.map((d, i) => (
-          <div key={d.feature} className="corr-feature-row">
-            <span className="corr-feature-rank">{i + 1}</span>
-            <span
-              className="corr-feature-dot"
-              style={{
-                background: d.correlation > 0 ? 'var(--success)' : 'var(--danger)',
-                opacity: d.significant ? 1 : 0.4,
-              }}
-            />
-            <div className="corr-feature-info">
-              <span className="corr-feature-name">{d.name}</span>
-              <span className="corr-feature-desc">{d.desc}</span>
-            </div>
-            <div className="corr-feature-stats">
-              <span className="corr-feature-r" style={{ color: d.correlation > 0 ? 'var(--success)' : 'var(--danger)' }}>
-                r = {d.correlation > 0 ? '+' : ''}{d.correlation.toFixed(3)}
-              </span>
-              <span className="corr-feature-imp">
-                {(d.importance * 100).toFixed(1)}% importance
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
 
       <div className="correlation-legend">
         <span className="legend-item">
           <span className="legend-swatch" style={{ background: 'var(--success)', opacity: 0.85 }} />
-          Positive (more &#8594; higher yield)
+          Positive correlation (more &#8594; higher yield)
         </span>
         <span className="legend-item">
           <span className="legend-swatch" style={{ background: 'var(--danger)', opacity: 0.85 }} />
-          Negative (more &#8594; lower yield)
+          Negative correlation (more &#8594; lower yield)
         </span>
         <span className="legend-item">
-          Bubble size = |correlation|, Y-axis = Random Forest importance
+          <span className="legend-swatch" style={{ background: 'var(--text-muted)', opacity: 0.35 }} />
+          Not statistically significant
         </span>
       </div>
     </div>
@@ -199,16 +157,16 @@ function CustomTooltip({ active, payload }) {
       backdropFilter: 'blur(8px)',
       maxWidth: 260,
     }}>
-      <div style={{ fontWeight: 700, marginBottom: 4 }}>{d.name}</div>
-      <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 8 }}>{d.desc}</div>
+      <div style={{ fontWeight: 700, marginBottom: 2 }}>{d.name}</div>
+      <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 6 }}>{d.desc}</div>
       <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12 }}>
-        <span style={{ color: d.correlation > 0 ? 'var(--success)' : 'var(--danger)' }}>
+        <span style={{ color: d.correlation > 0 ? 'var(--success)' : 'var(--danger)', fontWeight: 700 }}>
           r = {d.correlation > 0 ? '+' : ''}{d.correlation.toFixed(3)}
         </span>
-        {' '}&middot;{' '}
-        RF importance: {(d.importance * 100).toFixed(1)}%
+        {' | '}
+        RF importance: <strong>{d.impPct}%</strong>
         {!d.significant && (
-          <div style={{ color: 'var(--text-muted)', fontSize: 11, marginTop: 4 }}>
+          <div style={{ color: 'var(--text-muted)', fontSize: 11, marginTop: 4, fontStyle: 'italic' }}>
             Not statistically significant (p &gt; 0.05)
           </div>
         )}

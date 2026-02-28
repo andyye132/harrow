@@ -1,73 +1,77 @@
 import { useMemo } from 'react';
-import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, Cell, ReferenceLine
-} from 'recharts';
+import { motion } from 'framer-motion';
 import useStore from '../../store/useStore';
+import './ExtremeEventsChart.css';
 
 export default function ExtremeEventsChart() {
   const extremeEvents = useStore(s => s.extremeEvents);
   const chartCrop = useStore(s => s.chartCrop);
 
-  const chartData = useMemo(() => {
+  const events = useMemo(() => {
     if (!extremeEvents) return [];
     return extremeEvents
       .filter(e => e.crop === chartCrop)
-      .map(e => ({
-        name: `${e.event} (${e.year})`,
-        year: e.year,
-        deviation: e.deviation_pct,
-        avgYield: e.avg_yield,
-        overallAvg: e.overall_avg,
-      }));
+      .sort((a, b) => a.deviation_pct - b.deviation_pct);
   }, [extremeEvents, chartCrop]);
 
+  if (!events.length) {
+    return <div className="extreme-empty">No extreme events found for this crop.</div>;
+  }
+
   return (
-    <ResponsiveContainer width="100%" height={250}>
-      <BarChart data={chartData} margin={{ top: 10, right: 20, bottom: 40, left: 0 }}>
-        <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-        <XAxis
-          dataKey="name"
-          stroke="var(--text-muted)"
-          fontSize={10}
-          fontFamily="var(--font-mono)"
-          angle={-20}
-          textAnchor="end"
-          tickLine={false}
-          height={60}
-        />
-        <YAxis
-          stroke="var(--text-muted)"
-          fontSize={11}
-          fontFamily="var(--font-mono)"
-          tickLine={false}
-          label={{ value: '% deviation from avg', angle: -90, position: 'insideLeft', fill: 'var(--text-muted)', fontSize: 11 }}
-        />
-        <Tooltip
-          contentStyle={{
-            background: 'var(--bg-overlay)',
-            border: '1px solid var(--border)',
-            borderRadius: '8px',
-            fontSize: '12px',
-            fontFamily: 'var(--font-mono)',
-            color: 'var(--text-primary)',
-          }}
-          formatter={(value, name, props) => [
-            `${value > 0 ? '+' : ''}${value.toFixed(1)}% (${props.payload.avgYield} vs ${props.payload.overallAvg} bu/acre avg)`,
-            'Yield Impact'
-          ]}
-        />
-        <ReferenceLine y={0} stroke="var(--text-muted)" strokeWidth={1} />
-        <Bar dataKey="deviation" radius={[4, 4, 0, 0]}>
-          {chartData.map((entry, i) => (
-            <Cell
-              key={i}
-              fill={entry.deviation < 0 ? 'var(--danger)' : 'var(--success)'}
-              fillOpacity={0.8}
-            />
-          ))}
-        </Bar>
-      </BarChart>
-    </ResponsiveContainer>
+    <div className="extreme-cards">
+      {events.map((e, i) => {
+        const isNeg = e.deviation_pct < 0;
+        return (
+          <motion.div
+            key={`${e.event}-${e.year}`}
+            className={`extreme-card ${isNeg ? 'negative' : 'positive'}`}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.06 }}
+          >
+            <div className="extreme-card-header">
+              <span className="extreme-event-name">{e.event}</span>
+              <span className="extreme-event-year">{e.year}</span>
+            </div>
+
+            <div className="extreme-stat-row">
+              <div className="extreme-stat">
+                <span className={`extreme-stat-val ${isNeg ? 'neg' : 'pos'}`}>
+                  {isNeg ? '' : '+'}{e.deviation_pct.toFixed(1)}%
+                </span>
+                <span className="extreme-stat-label">Yield Impact</span>
+              </div>
+              <div className="extreme-stat">
+                <span className="extreme-stat-val">{e.avg_yield}</span>
+                <span className="extreme-stat-label">bu/acre that year</span>
+              </div>
+              <div className="extreme-stat">
+                <span className="extreme-stat-val muted">{e.overall_avg}</span>
+                <span className="extreme-stat-label">bu/acre 15yr avg</span>
+              </div>
+            </div>
+
+            <div className="extreme-bar-track">
+              <div
+                className={`extreme-bar-fill ${isNeg ? 'neg' : 'pos'}`}
+                style={{
+                  width: `${Math.min(100, Math.abs(e.deviation_pct) * 3)}%`,
+                  marginLeft: isNeg ? 'auto' : 0,
+                  marginRight: isNeg ? 0 : 'auto',
+                }}
+              />
+            </div>
+
+            <p className="extreme-desc">
+              {isNeg
+                ? `Average yield dropped to ${e.avg_yield} bu/acre, ${Math.abs(e.deviation_pct).toFixed(1)}% below the 15-year average of ${e.overall_avg} bu/acre.`
+                : `Average yield rose to ${e.avg_yield} bu/acre, ${e.deviation_pct.toFixed(1)}% above the 15-year average of ${e.overall_avg} bu/acre.`
+              }
+            </p>
+          </motion.div>
+        );
+      })}
+    </div>
   );
 }

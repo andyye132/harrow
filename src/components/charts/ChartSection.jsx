@@ -37,6 +37,7 @@ export default function ChartSection() {
       <FilterControls />
 
       <div className="charts-grid">
+        {/* 1. Yield Trends */}
         <motion.div
           className="chart-card full-width"
           initial="hidden"
@@ -52,6 +53,7 @@ export default function ChartSection() {
           <YieldTrendChart />
         </motion.div>
 
+        {/* 2. Weather-Yield Correlations */}
         <motion.div
           className="chart-card full-width"
           initial="hidden"
@@ -59,6 +61,24 @@ export default function ChartSection() {
           viewport={{ once: true, margin: '-50px' }}
           variants={sectionVariants}
           transition={{ duration: 0.5, delay: 0.12 }}
+        >
+          <h3 className="chart-title">Weather-Yield Correlations</h3>
+          <p className="chart-desc">
+            Which weather features matter most for predicting yield? Bars show Random Forest feature importance,
+            colored by direction of correlation. Red = <em>reduces</em> yield. Green = increases yield.
+            Based on 480 state-year observations with 76 million daily weather records.
+          </p>
+          <CorrelationChart />
+        </motion.div>
+
+        {/* 3. Crop Economics */}
+        <motion.div
+          className="chart-card full-width"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          variants={sectionVariants}
+          transition={{ duration: 0.5, delay: 0.15 }}
         >
           <h3 className="chart-title">Corn vs Soybeans: Economic Comparison</h3>
           <p className="chart-desc">
@@ -68,23 +88,7 @@ export default function ChartSection() {
           <CropEconomics />
         </motion.div>
 
-        <motion.div
-          className="chart-card full-width"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
-          variants={sectionVariants}
-          transition={{ duration: 0.5, delay: 0.15 }}
-        >
-          <h3 className="chart-title">Weather-Yield Correlations</h3>
-          <p className="chart-desc">
-            Each bubble is a weather feature. X-axis = correlation with yield (negative = <em>reduces</em> yield).
-            Y-axis = Random Forest importance (how much the model relies on it). Bubble size = |correlation|.
-            Based on 480 state-year observations with 76 million daily weather records.
-          </p>
-          <CorrelationChart />
-        </motion.div>
-
+        {/* 4. Extreme Weather Events */}
         <motion.div
           className="chart-card full-width"
           initial="hidden"
@@ -93,27 +97,28 @@ export default function ChartSection() {
           variants={sectionVariants}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <h3 className="chart-title">Weather-Defying Anomalies</h3>
+          <h3 className="chart-title">Extreme Weather Events</h3>
           <p className="chart-desc">
-            Cases where actual yield significantly defied what weather conditions predicted.
-            If conditions were terrible but yield was high (or vice versa), something interesting happened.
+            How droughts, floods, and heat waves impacted average yields compared to the 15-year baseline.
           </p>
-          <AnomalyMap />
+          <ExtremeEventsChart />
         </motion.div>
 
+        {/* 5. Weather-Defying Anomalies */}
         <motion.div
           className="chart-card full-width"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
           variants={sectionVariants}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
         >
-          <h3 className="chart-title">Extreme Weather Events</h3>
+          <h3 className="chart-title">Weather-Defying Anomalies</h3>
           <p className="chart-desc">
-            How droughts, floods, and heat waves impacted average yields. Bars show % deviation from the 15-year average.
+            Cases where actual yield significantly defied what weather conditions predicted.
+            If conditions were terrible but yield was high (or vice versa), something interesting happened.
           </p>
-          <ExtremeEventsChart />
+          <AnomalyMap />
         </motion.div>
       </div>
     </section>

@@ -1,0 +1,125 @@
+.extreme-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.extreme-card {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  border-top: 3px solid var(--border);
+}
+
+.extreme-card.negative {
+  border-top-color: var(--danger);
+}
+
+.extreme-card.positive {
+  border-top-color: var(--success);
+}
+
+.extreme-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.extreme-event-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.extreme-event-year {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  padding: 3px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.extreme-stat-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.extreme-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.extreme-stat-val {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.extreme-stat-val.neg {
+  color: var(--danger);
+}
+
+.extreme-stat-val.pos {
+  color: var(--success);
+}
+
+.extreme-stat-val.muted {
+  color: var(--text-muted);
+  font-size: 16px;
+}
+
+.extreme-stat-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-top: 2px;
+}
+
+.extreme-bar-track {
+  height: 6px;
+  background: var(--bg-card);
+  border-radius: 3px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.extreme-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+.extreme-bar-fill.neg {
+  background: var(--danger);
+}
+
+.extreme-bar-fill.pos {
+  background: var(--success);
+}
+
+.extreme-desc {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.extreme-empty {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 24px;
+}
+
+@media (max-width: 768px) {
+  .extreme-cards {
+    grid-template-columns: 1fr;
+  }
+}

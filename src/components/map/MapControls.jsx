@@ -20,11 +20,11 @@ export default function MapCameraControls() {
       const feature = geoData.features.find(f => f.id === selectedState);
       if (feature) {
         const [cx, cz] = getStateCentroid(feature);
-        // Tilted perspective looking at the state
+        // Zoom in closer and center directly on the state
         ref.current.setLookAt(
-          cx, 5, cz + 4,    // camera position
-          cx, 0, cz,         // target
-          true                // animate
+          cx + 0.5, 3.5, cz + 2.5,   // camera position: closer, slightly offset
+          cx, 0, cz,                    // target: state center
+          true                          // animate
         );
       }
     } else {
@@ -41,7 +41,7 @@ export default function MapCameraControls() {
     <CameraControls
       ref={ref}
       makeDefault
-      minDistance={3}
+      minDistance={2}
       maxDistance={15}
       minPolarAngle={0.2}
       maxPolarAngle={Math.PI / 2.2}
