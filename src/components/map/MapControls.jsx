@@ -4,8 +4,8 @@ import useStore from '../../store/useStore';
 import useGeoData from '../../hooks/useGeoData';
 import { getStateCentroid } from '../../utils/geoToShape';
 
-// Default camera position: overhead angled view
-const DEFAULT_POS = [0, 7, 5];
+// Fixed camera offset from target (keeps the same viewing angle always)
+const CAM_OFFSET = { x: 0, y: 5, z: 3.5 };
 const DEFAULT_TARGET = [0, 0, -0.5];
 
 export default function MapCameraControls() {
@@ -20,17 +20,19 @@ export default function MapCameraControls() {
       const feature = geoData.features.find(f => f.id === selectedState);
       if (feature) {
         const [cx, cz] = getStateCentroid(feature);
-        // Zoom in closer and center directly on the state
+        // Target = state center on the ground plane
+        // Camera = same fixed offset above/behind the target
         ref.current.setLookAt(
-          cx + 0.5, 3.5, cz + 2.5,   // camera position: closer, slightly offset
-          cx, 0, cz,                    // target: state center
-          true                          // animate
+          cx + CAM_OFFSET.x, CAM_OFFSET.y, cz + CAM_OFFSET.z,
+          cx, 0, cz,
+          true
         );
       }
     } else {
-      // Reset to default
       ref.current.setLookAt(
-        ...DEFAULT_POS,
+        DEFAULT_TARGET[0] + CAM_OFFSET.x,
+        CAM_OFFSET.y + 2,
+        DEFAULT_TARGET[2] + CAM_OFFSET.z + 1.5,
         ...DEFAULT_TARGET,
         true
       );
