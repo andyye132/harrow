@@ -1,16 +1,18 @@
 import { useEffect } from 'react';
 import useStore from '../store/useStore';
 
+const BASE = import.meta.env.BASE_URL;
+
 const DATA_FILES = {
-  stateYields: '/data/state_yields.json',
-  countyYields: '/data/county_yields.json',
-  anomalies: '/data/yield_anomalies.json',
-  stateSummaries: '/data/state_summaries.json',
-  plantingGuide: '/data/planting_guide.json',
-  extremeEvents: '/data/extreme_events.json',
-  monthlyNormals: '/data/monthly_normals.json',
-  weatherByState: '/data/weather_by_state.json',
-  weatherAnomalies: '/data/weather_anomalies.json',
+  stateYields: `${BASE}data/state_yields.json`,
+  countyYields: `${BASE}data/county_yields.json`,
+  anomalies: `${BASE}data/yield_anomalies.json`,
+  stateSummaries: `${BASE}data/state_summaries.json`,
+  plantingGuide: `${BASE}data/planting_guide.json`,
+  extremeEvents: `${BASE}data/extreme_events.json`,
+  monthlyNormals: `${BASE}data/monthly_normals.json`,
+  weatherByState: `${BASE}data/weather_by_state.json`,
+  weatherAnomalies: `${BASE}data/weather_anomalies.json`,
 };
 
 export default function useYieldData() {

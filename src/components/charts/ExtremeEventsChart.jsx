@@ -31,7 +31,8 @@ export default function ExtremeEventsChart() {
   const [weatherByState, setWeatherByState] = useState(null);
 
   useEffect(() => {
-    fetch('/data/weather_by_state.json')
+    const base = import.meta.env.BASE_URL;
+    fetch(`${base}data/weather_by_state.json`)
       .then(r => r.ok ? r.json() : {})
       .then(setWeatherByState)
       .catch(() => setWeatherByState({}));

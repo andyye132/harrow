@@ -29,11 +29,12 @@ export default function CorrelationChart() {
   const chartCrop = useStore(s => s.chartCrop);
 
   useEffect(() => {
-    fetch('/data/correlations.json')
+    const base = import.meta.env.BASE_URL;
+    fetch(`${base}data/correlations.json`)
       .then(r => r.json())
       .then(setCorrelations)
       .catch(() => {});
-    fetch('/data/feature_importance.json')
+    fetch(`${base}data/feature_importance.json`)
       .then(r => r.json())
       .then(setFeatureImportance)
       .catch(() => {});

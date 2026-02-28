@@ -17,11 +17,12 @@ export default function AnomalyMap() {
   const chartCrop = useStore(s => s.chartCrop);
 
   useEffect(() => {
-    fetch('/data/weather_anomalies.json')
+    const base = import.meta.env.BASE_URL;
+    fetch(`${base}data/weather_anomalies.json`)
       .then(r => r.ok ? r.json() : [])
       .then(setWeatherAnomalies)
       .catch(() => setWeatherAnomalies([]));
-    fetch('/data/weather_by_state.json')
+    fetch(`${base}data/weather_by_state.json`)
       .then(r => r.ok ? r.json() : {})
       .then(setWeatherByState)
       .catch(() => setWeatherByState({}));
