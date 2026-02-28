@@ -87,20 +87,23 @@ export function geoFeatureToShapes(feature) {
 
 /**
  * Get the centroid of a state feature in Three.js coordinates.
+ * Uses all polygon rings for accurate multi-polygon centroids.
  */
 export function getStateCentroid(feature) {
-  const coords = feature.geometry.type === 'MultiPolygon'
-    ? feature.geometry.coordinates[0][0]
-    : feature.geometry.coordinates[0];
+  const polygons = feature.geometry.type === 'MultiPolygon'
+    ? feature.geometry.coordinates
+    : [feature.geometry.coordinates];
 
   let sumX = 0, sumY = 0, count = 0;
-  for (const coord of coords) {
-    const p = projection(coord);
-    if (p) {
-      sumX += (p[0] - 487.5) * 0.01;
-      sumY += -(p[1] - 305) * 0.01;
-      count++;
+  for (const polygon of polygons) {
+    for (const coord of polygon[0]) {
+      const p = projection(coord);
+      if (p) {
+        sumX += (p[0] - 487.5) * 0.01;
+        sumY += -(p[1] - 305) * 0.01;
+        count++;
+      }
     }
   }
-  return [sumX / count, sumY / count];
+  return count > 0 ? [sumX / count, sumY / count] : [0, 0];
 }
