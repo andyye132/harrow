@@ -102,3 +102,25 @@
 .legend-dot.harvest {
   background: var(--warning);
 }
+
+.yield-legend-sep {
+  color: var(--border);
+  margin: 0 2px;
+}
+
+.yield-legend-label {
+  font-weight: 600;
+}
+
+.yield-gradient {
+  width: 48px;
+  height: 7px;
+  border-radius: 3px;
+  background: linear-gradient(to right, #3c6e28, #60c040, #22c55e);
+  display: inline-block;
+}
+
+.yield-legend-range {
+  font-size: 8px;
+  letter-spacing: 0.3px;
+}

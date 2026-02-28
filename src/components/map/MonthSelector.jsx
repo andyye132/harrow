@@ -46,6 +46,10 @@ export default function MonthSelector() {
         <div className="season-legend">
           <span className="legend-dot growing" /> Growing
           <span className="legend-dot harvest" /> Harvest
+          <span className="yield-legend-sep">|</span>
+          <span className="yield-legend-label">Yield:</span>
+          <span className="yield-gradient" />
+          <span className="yield-legend-range">Low → High</span>
         </div>
       </div>
     </div>
