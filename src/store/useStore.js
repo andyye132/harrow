@@ -15,7 +15,7 @@ const useStore = create((set) => ({
   selectedMonth: new Date().getMonth(),
   selectedYear: 2024,
   pointerPosition: { x: 0, y: 0 },
-  drillDownState: null, // state FIPS for county drill-down
+  drillDownState: null,
 
   // Plant helper
   helperState: null,
@@ -36,12 +36,15 @@ const useStore = create((set) => ({
   stateSummaries: null,
   plantingGuide: null,
   extremeEvents: null,
+  monthlyNormals: null,
+  weatherByState: null,
+  weatherAnomalies: null,
 
   // Actions
   setSelectedState: (id) => set((state) => ({
     selectedState: state.selectedState === id ? null : id,
     helperState: state.selectedState === id ? state.helperState : id,
-    drillDownState: null, // reset county drill-down
+    drillDownState: null,
   })),
   setDrillDownState: (id) => set({ drillDownState: id }),
   setHoveredState: (id) => set({ hoveredState: id }),

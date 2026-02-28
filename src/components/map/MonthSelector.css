@@ -6,27 +6,55 @@
   z-index: 10;
 }
 
-.month-track {
+.month-selector-inner {
   display: flex;
-  gap: 2px;
+  align-items: center;
+  gap: 8px;
   background: var(--bg-overlay);
   backdrop-filter: blur(12px);
   border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 4px;
+  border-radius: 24px;
+  padding: 5px 8px;
+}
+
+.month-crop-toggle {
+  display: flex;
+  gap: 2px;
+}
+
+.crop-toggle-btn {
+  font-size: 14px;
+  background: transparent;
+  border: none;
+  padding: 4px 6px;
+  border-radius: 12px;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: all var(--transition);
+}
+
+.crop-toggle-btn.active {
+  opacity: 1;
+  background: var(--bg-tertiary);
+}
+
+.month-track {
+  display: flex;
+  gap: 1px;
 }
 
 .month-btn {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
   color: var(--text-muted);
   background: transparent;
   border: none;
-  padding: 6px 10px;
-  border-radius: 16px;
+  padding: 5px 7px;
+  border-radius: 14px;
   cursor: pointer;
   transition: all var(--transition);
+  position: relative;
 }
 
 .month-btn:hover {
@@ -34,7 +62,43 @@
   background: var(--bg-tertiary);
 }
 
+/* Season indicators */
+.month-btn.growing {
+  border-bottom: 2px solid var(--success);
+}
+
+.month-btn.harvest {
+  border-bottom: 2px solid var(--warning);
+}
+
 .month-btn.active {
   color: white;
   background: var(--accent);
+  border-bottom-color: transparent;
+}
+
+.season-legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 9px;
+  color: var(--text-muted);
+  padding-left: 6px;
+  white-space: nowrap;
+}
+
+.legend-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 2px;
+}
+
+.legend-dot.growing {
+  background: var(--success);
+}
+
+.legend-dot.harvest {
+  background: var(--warning);
 }

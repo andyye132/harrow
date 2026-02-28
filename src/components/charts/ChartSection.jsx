@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import useStore from '../../store/useStore';
 import YieldTrendChart from './YieldTrendChart';
 import CorrelationChart from './CorrelationChart';
+import CropEconomics from './CropEconomics';
 import AnomalyMap from './AnomalyMap';
 import ExtremeEventsChart from './ExtremeEventsChart';
 import FilterControls from './FilterControls';
@@ -57,6 +58,22 @@ export default function ChartSection() {
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
           variants={sectionVariants}
+          transition={{ duration: 0.5, delay: 0.12 }}
+        >
+          <h3 className="chart-title">Corn vs Soybeans: Economic Comparison</h3>
+          <p className="chart-desc">
+            Corn yields ~3x more bushels, but soybeans fetch ~2.5x the price per bushel. Which is more profitable per acre?
+            Based on USDA cost data and CME commodity prices.
+          </p>
+          <CropEconomics />
+        </motion.div>
+
+        <motion.div
+          className="chart-card full-width"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          variants={sectionVariants}
           transition={{ duration: 0.5, delay: 0.15 }}
         >
           <h3 className="chart-title">Weather-Yield Correlations</h3>
@@ -67,22 +84,23 @@ export default function ChartSection() {
         </motion.div>
 
         <motion.div
-          className="chart-card"
+          className="chart-card full-width"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
           variants={sectionVariants}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <h3 className="chart-title">Yield Anomalies by Year</h3>
+          <h3 className="chart-title">Weather-Defying Anomalies</h3>
           <p className="chart-desc">
-            Counties where yield deviated more than 1.5 standard deviations from their historical average. Select a year to explore.
+            Cases where actual yield significantly defied what weather conditions predicted.
+            If conditions were terrible but yield was high (or vice versa), something interesting happened.
           </p>
           <AnomalyMap />
         </motion.div>
 
         <motion.div
-          className="chart-card"
+          className="chart-card full-width"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}

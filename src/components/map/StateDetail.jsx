@@ -1,8 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import useStore from '../../store/useStore';
 import { FIPS_TO_ABBR, STATE_NAMES } from '../../utils/geoToShape';
-import { CROP_COLORS } from '../../utils/colorScales';
-import { CROP_GROWING_STATS, formatYield, formatTrend } from '../../utils/cropStats';
+import { CROP_COLORS, MONTHS } from '../../utils/colorScales';
+import { CROP_GROWING_STATS, cToF, getSeasonStatus } from '../../utils/cropStats';
 import './StateDetail.css';
 
 export default function StateDetail() {
@@ -10,14 +10,18 @@ export default function StateDetail() {
   const stateSummaries = useStore(s => s.stateSummaries);
   const stateYields = useStore(s => s.stateYields);
   const countyYields = useStore(s => s.countyYields);
+  const monthlyNormals = useStore(s => s.monthlyNormals);
+  const selectedMonth = useStore(s => s.selectedMonth);
   const setSelectedState = useStore(s => s.setSelectedState);
-  const drillDownState = useStore(s => s.drillDownState);
-  const setDrillDownState = useStore(s => s.setDrillDownState);
 
   const abbr = selectedState ? FIPS_TO_ABBR[selectedState] : null;
   const stateName = abbr ? STATE_NAMES[abbr] : null;
   const summary = abbr ? stateSummaries?.[abbr] : null;
   const yields = abbr ? stateYields?.[abbr] : null;
+
+  // Monthly weather for this state
+  const stateNormals = abbr && monthlyNormals ? monthlyNormals[abbr] : null;
+  const currentMonthWeather = stateNormals ? stateNormals[String(selectedMonth + 1)] : null;
 
   // Get counties for this state
   const stateCounties = countyYields && abbr
@@ -45,10 +49,54 @@ export default function StateDetail() {
             </button>
           </div>
 
+          {/* Current month weather banner */}
+          {currentMonthWeather && (
+            <div className="month-weather-banner">
+              <div className="month-weather-title">
+                {MONTHS[selectedMonth]} Weather (historical avg)
+              </div>
+              <div className="month-weather-grid">
+                <div className="mw-stat">
+                  <span className="mw-val">{cToF(currentMonthWeather.avg_high)}°F</span>
+                  <span className="mw-label">Avg High</span>
+                </div>
+                <div className="mw-stat">
+                  <span className="mw-val">{cToF(currentMonthWeather.avg_low)}°F</span>
+                  <span className="mw-label">Avg Low</span>
+                </div>
+                <div className="mw-stat">
+                  <span className="mw-val">{cToF(currentMonthWeather.avg_temp)}°F</span>
+                  <span className="mw-label">Avg Temp</span>
+                </div>
+                <div className="mw-stat">
+                  <span className="mw-val">{(currentMonthWeather.avg_precip_mm / 25.4).toFixed(1)}"</span>
+                  <span className="mw-label">Rainfall</span>
+                </div>
+              </div>
+              {/* Season status per crop */}
+              <div className="month-season-tags">
+                {['corn', 'soybeans'].map(crop => {
+                  const status = getSeasonStatus(crop, selectedMonth);
+                  return (
+                    <span key={crop} className={`season-tag ${status}`}>
+                      {CROP_GROWING_STATS[crop].emoji} {status === 'growing' ? 'Growing' : status === 'harvest' ? 'Harvest' : 'Dormant'}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {summary && (
             <div className="detail-body">
               {Object.entries(summary.crops).map(([crop, data]) => {
                 const growingStats = CROP_GROWING_STATS[crop];
+                // Check if current month temp is in ideal range
+                const tempInRange = currentMonthWeather
+                  ? currentMonthWeather.avg_temp >= growingStats.idealTempC.min &&
+                    currentMonthWeather.avg_temp <= growingStats.idealTempC.max
+                  : null;
+
                 return (
                   <div key={crop} className="detail-crop-card">
                     <div className="crop-card-header">
@@ -76,8 +124,10 @@ export default function StateDetail() {
                         <span className="stat-unit">bu/acre per year</span>
                       </div>
                       <div className="stat-box">
-                        <span className="stat-value-lg">{data.variability}</span>
-                        <span className="stat-unit">std deviation</span>
+                        <span className="stat-value-lg">
+                          ${Math.round(data.recent_avg * growingStats.pricePerBushel)}
+                        </span>
+                        <span className="stat-unit">revenue/acre</span>
                       </div>
                     </div>
 
@@ -100,10 +150,17 @@ export default function StateDetail() {
                       </div>
                     )}
 
-                    {/* Growing stats from reference images */}
+                    {/* Growing stats */}
                     {growingStats && (
                       <div className="growing-stats">
-                        <div className="growing-stats-header">Growing Requirements</div>
+                        <div className="growing-stats-header">
+                          Growing Requirements
+                          {currentMonthWeather && tempInRange !== null && (
+                            <span className={`temp-indicator ${tempInRange ? 'good' : 'bad'}`}>
+                              {tempInRange ? '✓ In range this month' : '✗ Outside range this month'}
+                            </span>
+                          )}
+                        </div>
                         {growingStats.stats.map((stat, i) => (
                           <div key={i} className="growing-stat-row">
                             <span className="growing-check">✓</span>
@@ -137,11 +194,7 @@ export default function StateDetail() {
                   </div>
                   <div className="county-list">
                     {stateCounties
-                      .sort((a, b) => {
-                        const aYield = getLatestYield(a[1]);
-                        const bYield = getLatestYield(b[1]);
-                        return bYield - aYield;
-                      })
+                      .sort((a, b) => getLatestYield(b[1]) - getLatestYield(a[1]))
                       .slice(0, 15)
                       .map(([fips, data]) => (
                         <div key={fips} className="county-row">
@@ -149,7 +202,6 @@ export default function StateDetail() {
                           <div className="county-crops">
                             {Object.entries(data.crops).map(([crop, years]) => {
                               const latest = years[years.length - 1];
-                              const avg = years.reduce((s, y) => s + y.yield, 0) / years.length;
                               return (
                                 <span key={crop} className="county-crop-val">
                                   <span className="county-crop-emoji">{crop === 'corn' ? '🌽' : '🫘'}</span>
@@ -215,14 +267,12 @@ function Sparkline({ data, color }) {
   return (
     <div className="sparkline-wrap">
       <svg width={w} height={h + 20} className="sparkline">
-        {/* Y axis labels */}
         <text x="0" y={padY + 3} fontSize="9" fill="var(--text-muted)" fontFamily="var(--font-mono)">
           {Math.round(max)}
         </text>
         <text x="0" y={h - padY + 3} fontSize="9" fill="var(--text-muted)" fontFamily="var(--font-mono)">
           {Math.round(min)}
         </text>
-        {/* Line */}
         <polyline
           fill="none"
           stroke={color}
@@ -230,7 +280,6 @@ function Sparkline({ data, color }) {
           points={points}
           strokeLinejoin="round"
         />
-        {/* Last point dot */}
         {values.length > 0 && (
           <circle
             cx={w}
@@ -239,7 +288,6 @@ function Sparkline({ data, color }) {
             fill={color}
           />
         )}
-        {/* Year labels */}
         <text x="0" y={h + 14} fontSize="9" fill="var(--text-muted)" fontFamily="var(--font-mono)">
           {years[0]}
         </text>

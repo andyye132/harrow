@@ -8,6 +8,9 @@ const DATA_FILES = {
   stateSummaries: '/data/state_summaries.json',
   plantingGuide: '/data/planting_guide.json',
   extremeEvents: '/data/extreme_events.json',
+  monthlyNormals: '/data/monthly_normals.json',
+  weatherByState: '/data/weather_by_state.json',
+  weatherAnomalies: '/data/weather_anomalies.json',
 };
 
 export default function useYieldData() {
@@ -19,9 +22,12 @@ export default function useYieldData() {
 
     Object.entries(DATA_FILES).forEach(([key, path]) => {
       fetch(path)
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) throw new Error(`${res.status}`);
+          return res.json();
+        })
         .then(data => setData(key, data))
-        .catch(err => console.error(`Failed to load ${key}:`, err));
+        .catch(() => {}); // silently skip missing files
     });
   }, [setData, stateYields]);
 }
