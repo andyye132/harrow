@@ -199,6 +199,17 @@
   color: var(--text-secondary);
 }
 
+.econ-sources a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.econ-sources a:hover {
+  border-bottom-color: var(--accent);
+}
+
 @media (max-width: 768px) {
   .econ-comparison {
     flex-direction: column;
