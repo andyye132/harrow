@@ -148,6 +148,43 @@
   color: var(--text-primary);
 }
 
+/* Top performers */
+.econ-top-states {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.econ-top-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.econ-top-heading {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.econ-top-item {
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 10px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.econ-top-item strong {
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  font-size: 13px;
+}
+
 /* Chart header with search */
 .econ-chart-header {
   display: flex;

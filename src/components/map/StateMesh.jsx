@@ -69,11 +69,15 @@ export default function StateMesh({ feature, yieldData }) {
   const baseColor = seasonColor(status, avgYield, hasData, theme);
   const isLight = theme === 'light';
 
+  const isInteractive = isSelected || isHovered;
   const { scale, emissiveIntensity, posY } = useSpring({
     scale: isSelected ? 8 : isHovered ? 2.5 : 1,
     emissiveIntensity: isSelected ? 0.4 : isHovered ? 0.25 : (status === 'harvest' && hasData ? 0.1 : 0),
     posY: isSelected ? 0.1 : 0,
-    config: { mass: 1, tension: 280, friction: 40 },
+    // Bouncy spring for hover/select, instant for month slider changes
+    config: isInteractive
+      ? { mass: 1, tension: 280, friction: 40 }
+      : { duration: 200 },
   });
 
   const geometries = useMemo(() => {

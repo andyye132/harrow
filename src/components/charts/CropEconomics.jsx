@@ -4,6 +4,7 @@ import {
   ResponsiveContainer, Legend, ReferenceLine
 } from 'recharts';
 import useStore from '../../store/useStore';
+import { STATE_NAMES } from '../../utils/geoToShape';
 import './CropEconomics.css';
 
 // USDA NASS Marketing Year Average Prices ($/bushel)
@@ -108,6 +109,16 @@ export default function CropEconomics() {
     };
   }, [comparisonData]);
 
+  // Top 3 states for each crop
+  const topCorn = useMemo(() =>
+    [...comparisonData].sort((a, b) => b.cornProfit - a.cornProfit).slice(0, 3),
+    [comparisonData]
+  );
+  const topSoy = useMemo(() =>
+    [...comparisonData].sort((a, b) => b.soyProfit - a.soyProfit).slice(0, 3),
+    [comparisonData]
+  );
+
   if (!natAvg) return null;
 
   const cornAvgPrice = avgPrice(CORN_PRICES, 2020).toFixed(2);
@@ -193,9 +204,29 @@ export default function CropEconomics() {
         Prices vary year to year — corn ranged from ${Math.min(...Object.values(CORN_PRICES)).toFixed(2)} to ${Math.max(...Object.values(CORN_PRICES)).toFixed(2)}/bu since 2010.
       </div>
 
+      {/* Top performers */}
+      <div className="econ-top-states">
+        <div className="econ-top-col">
+          <span className="econ-top-heading" style={{ color: 'var(--corn)' }}>Top Corn States</span>
+          {topCorn.map(s => (
+            <span key={s.state} className="econ-top-item">
+              {STATE_NAMES[s.state] || s.state} <strong>${s.cornProfit}/acre</strong>
+            </span>
+          ))}
+        </div>
+        <div className="econ-top-col">
+          <span className="econ-top-heading" style={{ color: 'var(--soy)' }}>Top Soybean States</span>
+          {topSoy.map(s => (
+            <span key={s.state} className="econ-top-item">
+              {STATE_NAMES[s.state] || s.state} <strong>${s.soyProfit}/acre</strong>
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* Search + chart */}
       <div className="econ-chart-header">
-        <h4 className="econ-chart-title">Profit per Acre by State (2020-2024, year-specific prices)</h4>
+        <h4 className="econ-chart-title">Profit per Acre by State (2020-2024)</h4>
         <input
           className="econ-search"
           type="text"
@@ -238,6 +269,7 @@ export default function CropEconomics() {
               fontFamily: 'var(--font-mono)',
               color: 'var(--text-primary)',
             }}
+            labelFormatter={(label) => STATE_NAMES[label] || label}
             formatter={(value, name) => [`$${value}/acre`, name]}
           />
           <Legend
