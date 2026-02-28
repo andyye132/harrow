@@ -14,28 +14,26 @@ const extrudeSettings = {
   bevelSegments: 1,
 };
 
-// Season-based color functions
+// Season-based color functions — same bright colors for both themes
 function seasonColor(status, avgYield, hasData, theme) {
-  if (!hasData) return theme === 'light' ? '#d4d4d4' : '#1e1e1e';
-  const isLight = theme === 'light';
+  if (!hasData) return theme === 'light' ? '#d4d4d4' : '#2a2a2a';
 
   switch (status) {
     case 'growing': {
-      // Vibrant green scale based on yield
       const t = Math.max(0, Math.min(1, (avgYield - 30) / 220));
-      return isLight
-        ? `rgb(${Math.round(80 - t * 40)}, ${Math.round(160 + t * 60)}, ${Math.round(60 - t * 20)})`
-        : `rgb(${Math.round(20 + t * 30)}, ${Math.round(100 + t * 100)}, ${Math.round(30 + t * 40)})`;
+      const r = Math.round(80 - t * 40);
+      const g = Math.round(160 + t * 60);
+      const b = Math.round(60 - t * 20);
+      return `rgb(${r}, ${g}, ${b})`;
     }
     case 'harvest': {
-      // Amber/gold scale based on yield
       const t = Math.max(0, Math.min(1, (avgYield - 30) / 220));
-      return isLight
-        ? `rgb(${Math.round(200 + t * 40)}, ${Math.round(150 + t * 30)}, ${Math.round(40 + t * 20)})`
-        : `rgb(${Math.round(150 + t * 60)}, ${Math.round(100 + t * 50)}, ${Math.round(10 + t * 20)})`;
+      const r = Math.round(200 + t * 40);
+      const g = Math.round(150 + t * 30);
+      const b = Math.round(40 + t * 20);
+      return `rgb(${r}, ${g}, ${b})`;
     }
     default:
-      // Dormant: muted
       return stateColor(avgYield, hasData, theme);
   }
 }
@@ -71,11 +69,8 @@ export default function StateMesh({ feature, yieldData }) {
   const baseColor = seasonColor(status, avgYield, hasData, theme);
   const isLight = theme === 'light';
 
-  // During growing/harvest season, active states extrude a bit more
-  const seasonExtrude = hasData && status !== 'dormant' ? 1.5 : 1;
-
   const { scale, emissiveIntensity, posY } = useSpring({
-    scale: isSelected ? 8 : isHovered ? 2.5 : seasonExtrude,
+    scale: isSelected ? 8 : isHovered ? 2.5 : 1,
     emissiveIntensity: isSelected ? 0.4 : isHovered ? 0.25 : (status === 'harvest' && hasData ? 0.1 : 0),
     posY: isSelected ? 0.1 : 0,
     config: { mass: 1, tension: 280, friction: 40 },

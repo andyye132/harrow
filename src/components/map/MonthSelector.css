@@ -81,6 +81,26 @@
   color: var(--accent);
 }
 
+.month-label.current {
+  position: relative;
+}
+
+.now-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 6px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  padding: 1px 4px;
+  border-radius: 4px;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
 /* Track wrapper — positions season segments behind the slider */
 .month-slider-track-wrap {
   position: relative;

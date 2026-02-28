@@ -3,6 +3,8 @@ import { MONTHS } from '../../utils/colorScales';
 import { getSeasonStatus, CROP_GROWING_STATS } from '../../utils/cropStats';
 import './MonthSelector.css';
 
+const CURRENT_MONTH = new Date().getMonth(); // 0-indexed
+
 export default function MonthSelector() {
   const selectedMonth = useStore(s => s.selectedMonth);
   const setSelectedMonth = useStore(s => s.setSelectedMonth);
@@ -30,11 +32,13 @@ export default function MonthSelector() {
           <div className="month-slider-labels">
             {MONTHS.map((month, i) => {
               const status = getSeasonStatus(chartCrop, i);
+              const isCurrent = i === CURRENT_MONTH;
               return (
                 <span
                   key={i}
-                  className={`month-label ${selectedMonth === i ? 'active' : ''} ${status}`}
+                  className={`month-label ${selectedMonth === i ? 'active' : ''} ${status} ${isCurrent ? 'current' : ''}`}
                 >
+                  {isCurrent && <span className="now-badge">NOW</span>}
                   {month.slice(0, 3)}
                 </span>
               );

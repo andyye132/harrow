@@ -27,21 +27,14 @@ export function anomalyColorScale(zScore) {
   }
 }
 
-// Three.js color for states based on yield — light-mode friendly
+// Three.js color for states based on yield — same bright colors for both themes
 export function stateColor(avgYield, hasData, theme = 'light') {
-  if (!hasData) return theme === 'light' ? '#d4d4d4' : '#1e1e1e';
+  if (!hasData) return theme === 'light' ? '#d4d4d4' : '#2a2a2a';
   const t = Math.max(0, Math.min(1, (avgYield - 30) / 220));
-  if (theme === 'light') {
-    // Earthy tones: light tan → forest green
-    const r = Math.round(180 - t * 120);
-    const g = Math.round(160 + t * 60);
-    const b = Math.round(100 - t * 50);
-    return `rgb(${r},${g},${b})`;
-  }
-  // Dark mode: dark green to bright green
-  const r = Math.round(20 + t * 40);
-  const g = Math.round(60 + t * 140);
-  const b = Math.round(30 + t * 50);
+  // Earthy tones: light tan → forest green (same for both themes)
+  const r = Math.round(180 - t * 120);
+  const g = Math.round(160 + t * 60);
+  const b = Math.round(100 - t * 50);
   return `rgb(${r},${g},${b})`;
 }
 
