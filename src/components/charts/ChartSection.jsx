@@ -78,7 +78,9 @@ export default function ChartSection() {
         >
           <h3 className="chart-title">Weather-Yield Correlations</h3>
           <p className="chart-desc">
-            How strongly each weather feature correlates with yield. Negative means that feature <em>reduces</em> yield. Based on 480 state-year observations with 76 million daily weather records.
+            Each bubble is a weather feature. X-axis = correlation with yield (negative = <em>reduces</em> yield).
+            Y-axis = Random Forest importance (how much the model relies on it). Bubble size = |correlation|.
+            Based on 480 state-year observations with 76 million daily weather records.
           </p>
           <CorrelationChart />
         </motion.div>

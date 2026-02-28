@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, Legend, ReferenceLine
@@ -6,25 +6,14 @@ import {
 import useStore from '../../store/useStore';
 import './CropEconomics.css';
 
-/**
- * Corn vs Soybeans economic comparison.
- *
- * Sources (clearly cited in the UI):
- * - Corn price: USDA NASS Marketing Year Average 2020-2024 ≈ $4.50/bu
- * - Soybean price: USDA NASS Marketing Year Average 2020-2024 ≈ $11.50/bu
- * - Corn operating costs: USDA ERS Commodity Costs and Returns 2023 ≈ $400/acre
- * - Soybean operating costs: USDA ERS Commodity Costs and Returns 2023 ≈ $300/acre
- * - These are OPERATING costs (seed, fertilizer, chemicals, fuel, etc.) — NOT total costs
- *   (which would include land rent, labor, overhead). Total cost is ~$700-900/acre for corn.
- */
-
 const CORN_PRICE = 4.50;
 const SOY_PRICE = 11.50;
-const CORN_COST = 400;  // operating cost/acre
-const SOY_COST = 300;   // operating cost/acre
+const CORN_COST = 400;
+const SOY_COST = 300;
 
 export default function CropEconomics() {
   const stateYields = useStore(s => s.stateYields);
+  const [search, setSearch] = useState('');
 
   const comparisonData = useMemo(() => {
     if (!stateYields) return [];
@@ -59,8 +48,15 @@ export default function CropEconomics() {
       });
     });
 
-    return states.sort((a, b) => (b.soyProfit - b.cornProfit) - (a.soyProfit - a.cornProfit));
+    return states.sort((a, b) => b.cornProfit - a.cornProfit);
   }, [stateYields]);
+
+  // Filter by search
+  const filteredData = useMemo(() => {
+    if (!search.trim()) return comparisonData;
+    const q = search.trim().toLowerCase();
+    return comparisonData.filter(d => d.state.toLowerCase().includes(q));
+  }, [comparisonData, search]);
 
   const natAvg = useMemo(() => {
     if (comparisonData.length === 0) return null;
@@ -81,9 +77,8 @@ export default function CropEconomics() {
 
   return (
     <div className="econ-container">
-      {/* Side-by-side crop comparison */}
+      {/* Side-by-side comparison */}
       <div className="econ-comparison">
-        {/* Corn column */}
         <div className="econ-col corn">
           <div className="econ-col-header">
             <span className="econ-col-emoji">&#x1F33D;</span>
@@ -116,12 +111,10 @@ export default function CropEconomics() {
           </div>
         </div>
 
-        {/* VS divider */}
         <div className="econ-divider">
           <span className="econ-divider-text">vs</span>
         </div>
 
-        {/* Soybeans column */}
         <div className="econ-col soy">
           <div className="econ-col-header">
             <span className="econ-col-emoji">&#x1FAD8;</span>
@@ -155,38 +148,47 @@ export default function CropEconomics() {
         </div>
       </div>
 
-      {/* Insight callout */}
       <div className="econ-insight">
         <strong>Why the difference?</strong> Corn produces ~{natAvg.cornYield} bushels/acre vs ~{natAvg.soyYield} for soybeans,
         but soybeans sell at ${SOY_PRICE}/bu (2.5x corn's ${CORN_PRICE}/bu) and cost ~$100/acre less to grow.
         The result: soybeans are more profitable in {natAvg.soyAdvantageStates} of {comparisonData.length} states.
       </div>
 
-      {/* Per-state profit bar chart */}
-      <h4 className="econ-chart-title">Profit per Acre by State (2020-2024 avg)</h4>
-      <ResponsiveContainer width="100%" height={Math.max(300, comparisonData.length * 26)}>
+      {/* Search + chart */}
+      <div className="econ-chart-header">
+        <h4 className="econ-chart-title">Profit per Acre by State (2020-2024 avg)</h4>
+        <input
+          className="econ-search"
+          type="text"
+          placeholder="Search states..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+
+      <ResponsiveContainer width="100%" height={340}>
         <BarChart
-          data={comparisonData.slice(0, 20)}
-          layout="vertical"
-          margin={{ top: 5, right: 30, bottom: 5, left: 40 }}
+          data={filteredData}
+          margin={{ top: 10, right: 10, bottom: 40, left: 10 }}
         >
-          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
           <XAxis
-            type="number"
+            dataKey="state"
             stroke="var(--text-muted)"
-            fontSize={12}
+            fontSize={11}
+            fontFamily="var(--font-mono)"
+            tickLine={false}
+            angle={-45}
+            textAnchor="end"
+            height={50}
+          />
+          <YAxis
+            stroke="var(--text-muted)"
+            fontSize={11}
             fontFamily="var(--font-mono)"
             tickLine={false}
             tickFormatter={(v) => `$${v}`}
-          />
-          <YAxis
-            dataKey="state"
-            type="category"
-            stroke="var(--text-muted)"
-            fontSize={13}
-            fontFamily="var(--font-mono)"
-            tickLine={false}
-            width={35}
+            width={50}
           />
           <Tooltip
             contentStyle={{
@@ -200,11 +202,11 @@ export default function CropEconomics() {
             formatter={(value, name) => [`$${value}/acre`, name]}
           />
           <Legend
-            wrapperStyle={{ fontSize: '12px', fontFamily: 'var(--font-mono)' }}
+            wrapperStyle={{ fontSize: '12px', fontFamily: 'var(--font-mono)', paddingTop: '8px' }}
           />
-          <ReferenceLine x={0} stroke="var(--text-muted)" strokeDasharray="3 3" />
-          <Bar dataKey="cornProfit" name="Corn Profit" fill="var(--corn)" fillOpacity={0.8} radius={[0, 4, 4, 0]} barSize={10} />
-          <Bar dataKey="soyProfit" name="Soybean Profit" fill="var(--soy)" fillOpacity={0.8} radius={[0, 4, 4, 0]} barSize={10} />
+          <ReferenceLine y={0} stroke="var(--text-muted)" strokeDasharray="3 3" />
+          <Bar dataKey="cornProfit" name="Corn Profit" fill="var(--corn)" fillOpacity={0.85} radius={[4, 4, 0, 0]} barSize={12} />
+          <Bar dataKey="soyProfit" name="Soybean Profit" fill="var(--soy)" fillOpacity={0.85} radius={[4, 4, 0, 0]} barSize={12} />
         </BarChart>
       </ResponsiveContainer>
 

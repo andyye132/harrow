@@ -148,12 +148,40 @@
   color: var(--text-primary);
 }
 
-/* Chart title */
+/* Chart header with search */
+.econ-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
 .econ-chart-title {
   font-size: 16px;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: -8px;
+}
+
+.econ-search {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  width: 160px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.econ-search:focus {
+  border-color: var(--accent);
+}
+
+.econ-search::placeholder {
+  color: var(--text-muted);
 }
 
 /* Sources */
