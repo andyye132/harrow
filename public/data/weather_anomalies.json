@@ -4,929 +4,1149 @@
     "state": "SC",
     "year": 2024,
     "actual": 40.4,
-    "predicted": 130.8,
-    "residual": -90.5,
+    "predicted": 147.0,
+    "residual": -106.7,
     "type": "underperformed",
-    "description": "SC corn in 2024: yielded 40.4 bu/acre vs 130.8 predicted (-90.5 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "MS",
-    "year": 2023,
-    "actual": 166.6,
-    "predicted": 87.5,
-    "residual": 79.1,
-    "type": "overperformed",
-    "description": "MS corn in 2023: yielded 166.6 bu/acre vs 87.5 predicted (+79.1 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "TX",
-    "year": 2023,
-    "actual": 112.2,
-    "predicted": 39.0,
-    "residual": 73.1,
-    "type": "overperformed",
-    "description": "TX corn in 2023: yielded 112.2 bu/acre vs 39.0 predicted (+73.1 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "IA",
-    "year": 2023,
-    "actual": 206.8,
-    "predicted": 136.6,
-    "residual": 70.2,
-    "type": "overperformed",
-    "description": "IA corn in 2023: yielded 206.8 bu/acre vs 136.6 predicted (+70.2 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "LA",
-    "year": 2023,
-    "actual": 147.9,
-    "predicted": 80.5,
-    "residual": 67.4,
-    "type": "overperformed",
-    "description": "LA corn in 2023: yielded 147.9 bu/acre vs 80.5 predicted (+67.4 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "AL",
-    "year": 2023,
-    "actual": 174.3,
-    "predicted": 108.3,
-    "residual": 66.0,
-    "type": "overperformed",
-    "description": "AL corn in 2023: yielded 174.3 bu/acre vs 108.3 predicted (+66.0 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "MO",
-    "year": 2024,
-    "actual": 182.1,
-    "predicted": 125.3,
-    "residual": 56.8,
-    "type": "overperformed",
-    "description": "MO corn in 2024: yielded 182.1 bu/acre vs 125.3 predicted (+56.8 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "NC",
-    "year": 2024,
-    "actual": 80.9,
-    "predicted": 134.9,
-    "residual": -54.0,
-    "type": "underperformed",
-    "description": "NC corn in 2024: yielded 80.9 bu/acre vs 134.9 predicted (-54.0 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "MO",
-    "year": 2023,
-    "actual": 148.4,
-    "predicted": 95.5,
-    "residual": 52.9,
-    "type": "overperformed",
-    "description": "MO corn in 2023: yielded 148.4 bu/acre vs 95.5 predicted (+52.9 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "WV",
-    "year": 2024,
-    "actual": 67.8,
-    "predicted": 119.4,
-    "residual": -51.6,
-    "type": "underperformed",
-    "description": "WV corn in 2024: yielded 67.8 bu/acre vs 119.4 predicted (-51.6 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "VA",
-    "year": 2024,
-    "actual": 86.0,
-    "predicted": 136.4,
-    "residual": -50.5,
-    "type": "underperformed",
-    "description": "VA corn in 2024: yielded 86.0 bu/acre vs 136.4 predicted (-50.5 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "IN",
-    "year": 2023,
-    "actual": 212.4,
-    "predicted": 163.0,
-    "residual": 49.4,
-    "type": "overperformed",
-    "description": "IN corn in 2023: yielded 212.4 bu/acre vs 163.0 predicted (+49.4 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "OH",
-    "year": 2023,
-    "actual": 205.4,
-    "predicted": 161.4,
-    "residual": 43.9,
-    "type": "overperformed",
-    "description": "OH corn in 2023: yielded 205.4 bu/acre vs 161.4 predicted (+43.9 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "IL",
-    "year": 2024,
-    "actual": 213.6,
-    "predicted": 170.7,
-    "residual": 43.0,
-    "type": "overperformed",
-    "description": "IL corn in 2024: yielded 213.6 bu/acre vs 170.7 predicted (+43.0 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "VT",
-    "year": 2024,
-    "actual": 108.5,
-    "predicted": 151.1,
-    "residual": -42.6,
-    "type": "underperformed",
-    "description": "VT corn in 2024: yielded 108.5 bu/acre vs 151.1 predicted (-42.6 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "WV",
-    "year": 2010,
-    "actual": 66.7,
-    "predicted": 109.2,
-    "residual": -42.5,
-    "type": "underperformed",
-    "description": "WV corn in 2010: yielded 66.7 bu/acre vs 109.2 predicted (-42.5 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "CO",
-    "year": 2023,
-    "actual": 58.3,
-    "predicted": 100.5,
-    "residual": -42.2,
-    "type": "underperformed",
-    "description": "CO corn in 2023: yielded 58.3 bu/acre vs 100.5 predicted (-42.2 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "IL",
-    "year": 2022,
-    "actual": 210.5,
-    "predicted": 169.4,
-    "residual": 41.1,
-    "type": "overperformed",
-    "description": "IL corn in 2022: yielded 210.5 bu/acre vs 169.4 predicted (+41.1 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "VT",
-    "year": 2023,
-    "actual": 103.5,
-    "predicted": 144.4,
-    "residual": -40.8,
-    "type": "underperformed",
-    "description": "VT corn in 2023: yielded 103.5 bu/acre vs 144.4 predicted (-40.8 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "IA",
-    "year": 2024,
-    "actual": 218.1,
-    "predicted": 178.9,
-    "residual": 39.2,
-    "type": "overperformed",
-    "description": "IA corn in 2024: yielded 218.1 bu/acre vs 178.9 predicted (+39.2 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "KY",
-    "year": 2024,
-    "actual": 175.2,
-    "predicted": 138.1,
-    "residual": 37.1,
-    "type": "overperformed",
-    "description": "KY corn in 2024: yielded 175.2 bu/acre vs 138.1 predicted (+37.1 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "IL",
-    "year": 2023,
-    "actual": 203.3,
-    "predicted": 167.9,
-    "residual": 35.4,
-    "type": "overperformed",
-    "description": "IL corn in 2023: yielded 203.3 bu/acre vs 167.9 predicted (+35.4 deviation)"
+    "description": "SC corn in 2024: yielded 40.4 bu/acre vs 147.0 predicted (-106.7 deviation)"
   },
   {
     "crop": "corn",
     "state": "SC",
     "year": 2015,
     "actual": 54.5,
-    "predicted": 89.4,
-    "residual": -34.8,
+    "predicted": 145.0,
+    "residual": -90.5,
     "type": "underperformed",
-    "description": "SC corn in 2015: yielded 54.5 bu/acre vs 89.4 predicted (-34.8 deviation)"
+    "description": "SC corn in 2015: yielded 54.5 bu/acre vs 145.0 predicted (-90.5 deviation)"
   },
   {
     "crop": "corn",
     "state": "IA",
-    "year": 2022,
-    "actual": 200.9,
-    "predicted": 166.7,
-    "residual": 34.2,
+    "year": 2023,
+    "actual": 206.8,
+    "predicted": 118.7,
+    "residual": 88.1,
     "type": "overperformed",
-    "description": "IA corn in 2022: yielded 200.9 bu/acre vs 166.7 predicted (+34.2 deviation)"
+    "description": "IA corn in 2023: yielded 206.8 bu/acre vs 118.7 predicted (+88.1 deviation)"
   },
   {
     "crop": "corn",
-    "state": "NJ",
-    "year": 2022,
-    "actual": 100.9,
-    "predicted": 134.8,
-    "residual": -33.9,
-    "type": "underperformed",
-    "description": "NJ corn in 2022: yielded 100.9 bu/acre vs 134.8 predicted (-33.9 deviation)"
+    "state": "IA",
+    "year": 2024,
+    "actual": 218.1,
+    "predicted": 136.5,
+    "residual": 81.6,
+    "type": "overperformed",
+    "description": "IA corn in 2024: yielded 218.1 bu/acre vs 136.5 predicted (+81.6 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "IA",
+    "year": 2021,
+    "actual": 209.8,
+    "predicted": 129.6,
+    "residual": 80.2,
+    "type": "overperformed",
+    "description": "IA corn in 2021: yielded 209.8 bu/acre vs 129.6 predicted (+80.2 deviation)"
   },
   {
     "crop": "corn",
     "state": "IN",
-    "year": 2024,
-    "actual": 203.6,
-    "predicted": 171.8,
-    "residual": 31.8,
+    "year": 2023,
+    "actual": 212.4,
+    "predicted": 134.2,
+    "residual": 78.2,
     "type": "overperformed",
-    "description": "IN corn in 2024: yielded 203.6 bu/acre vs 171.8 predicted (+31.8 deviation)"
+    "description": "IN corn in 2023: yielded 212.4 bu/acre vs 134.2 predicted (+78.2 deviation)"
   },
   {
     "crop": "corn",
-    "state": "IA",
-    "year": 2019,
-    "actual": 194.8,
-    "predicted": 163.5,
-    "residual": 31.3,
+    "state": "WV",
+    "year": 2010,
+    "actual": 66.7,
+    "predicted": 142.2,
+    "residual": -75.5,
+    "type": "underperformed",
+    "description": "WV corn in 2010: yielded 66.7 bu/acre vs 142.2 predicted (-75.5 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "TX",
+    "year": 2023,
+    "actual": 112.2,
+    "predicted": 37.3,
+    "residual": 74.8,
     "type": "overperformed",
-    "description": "IA corn in 2019: yielded 194.8 bu/acre vs 163.5 predicted (+31.3 deviation)"
+    "description": "TX corn in 2023: yielded 112.2 bu/acre vs 37.3 predicted (+74.8 deviation)"
   },
   {
     "crop": "corn",
     "state": "IL",
-    "year": 2018,
-    "actual": 202.6,
-    "predicted": 171.3,
-    "residual": 31.3,
-    "type": "overperformed",
-    "description": "IL corn in 2018: yielded 202.6 bu/acre vs 171.3 predicted (+31.3 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "PA",
-    "year": 2024,
-    "actual": 135.7,
-    "predicted": 167.0,
-    "residual": -31.3,
-    "type": "underperformed",
-    "description": "PA corn in 2024: yielded 135.7 bu/acre vs 167.0 predicted (-31.3 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "MO",
-    "year": 2014,
-    "actual": 182.3,
-    "predicted": 151.7,
-    "residual": 30.6,
-    "type": "overperformed",
-    "description": "MO corn in 2014: yielded 182.3 bu/acre vs 151.7 predicted (+30.6 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "KY",
     "year": 2023,
-    "actual": 191.8,
-    "predicted": 161.3,
-    "residual": 30.5,
+    "actual": 203.3,
+    "predicted": 130.0,
+    "residual": 73.3,
     "type": "overperformed",
-    "description": "KY corn in 2023: yielded 191.8 bu/acre vs 161.3 predicted (+30.5 deviation)"
+    "description": "IL corn in 2023: yielded 203.3 bu/acre vs 130.0 predicted (+73.3 deviation)"
   },
   {
     "crop": "corn",
-    "state": "TN",
+    "state": "IL",
     "year": 2024,
-    "actual": 148.6,
-    "predicted": 119.1,
-    "residual": 29.5,
+    "actual": 213.6,
+    "predicted": 141.0,
+    "residual": 72.7,
     "type": "overperformed",
-    "description": "TN corn in 2024: yielded 148.6 bu/acre vs 119.1 predicted (+29.5 deviation)"
+    "description": "IL corn in 2024: yielded 213.6 bu/acre vs 141.0 predicted (+72.7 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "WV",
+    "year": 2024,
+    "actual": 67.8,
+    "predicted": 138.2,
+    "residual": -70.4,
+    "type": "underperformed",
+    "description": "WV corn in 2024: yielded 67.8 bu/acre vs 138.2 predicted (-70.4 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "VT",
+    "year": 2013,
+    "actual": 76.8,
+    "predicted": 144.7,
+    "residual": -68.0,
+    "type": "underperformed",
+    "description": "VT corn in 2013: yielded 76.8 bu/acre vs 144.7 predicted (-68.0 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "MS",
+    "year": 2023,
+    "actual": 166.6,
+    "predicted": 99.3,
+    "residual": 67.3,
+    "type": "overperformed",
+    "description": "MS corn in 2023: yielded 166.6 bu/acre vs 99.3 predicted (+67.3 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "VT",
+    "year": 2011,
+    "actual": 89.8,
+    "predicted": 156.0,
+    "residual": -66.2,
+    "type": "underperformed",
+    "description": "VT corn in 2011: yielded 89.8 bu/acre vs 156.0 predicted (-66.2 deviation)"
   },
   {
     "crop": "corn",
     "state": "VA",
     "year": 2010,
     "actual": 51.9,
-    "predicted": 81.1,
-    "residual": -29.2,
+    "predicted": 117.5,
+    "residual": -65.5,
     "type": "underperformed",
-    "description": "VA corn in 2010: yielded 51.9 bu/acre vs 81.1 predicted (-29.2 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "MO",
-    "year": 2022,
-    "actual": 148.0,
-    "predicted": 119.3,
-    "residual": 28.7,
-    "type": "overperformed",
-    "description": "MO corn in 2022: yielded 148.0 bu/acre vs 119.3 predicted (+28.7 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "TN",
-    "year": 2023,
-    "actual": 178.4,
-    "predicted": 150.1,
-    "residual": 28.4,
-    "type": "overperformed",
-    "description": "TN corn in 2023: yielded 178.4 bu/acre vs 150.1 predicted (+28.4 deviation)"
+    "description": "VA corn in 2010: yielded 51.9 bu/acre vs 117.5 predicted (-65.5 deviation)"
   },
   {
     "crop": "corn",
     "state": "IA",
-    "year": 2016,
-    "actual": 205.1,
-    "predicted": 177.3,
-    "residual": 27.8,
+    "year": 2017,
+    "actual": 200.0,
+    "predicted": 135.6,
+    "residual": 64.4,
     "type": "overperformed",
-    "description": "IA corn in 2016: yielded 205.1 bu/acre vs 177.3 predicted (+27.8 deviation)"
+    "description": "IA corn in 2017: yielded 200.0 bu/acre vs 135.6 predicted (+64.4 deviation)"
   },
   {
     "crop": "corn",
-    "state": "KY",
-    "year": 2021,
-    "actual": 196.9,
-    "predicted": 169.3,
-    "residual": 27.7,
-    "type": "overperformed",
-    "description": "KY corn in 2021: yielded 196.9 bu/acre vs 169.3 predicted (+27.7 deviation)"
+    "state": "SC",
+    "year": 2011,
+    "actual": 49.3,
+    "predicted": 113.5,
+    "residual": -64.2,
+    "type": "underperformed",
+    "description": "SC corn in 2011: yielded 49.3 bu/acre vs 113.5 predicted (-64.2 deviation)"
   },
   {
     "crop": "corn",
-    "state": "IL",
-    "year": 2021,
-    "actual": 202.3,
-    "predicted": 174.8,
-    "residual": 27.5,
+    "state": "IA",
+    "year": 2018,
+    "actual": 197.0,
+    "predicted": 134.0,
+    "residual": 63.0,
     "type": "overperformed",
-    "description": "IL corn in 2021: yielded 202.3 bu/acre vs 174.8 predicted (+27.5 deviation)"
+    "description": "IA corn in 2018: yielded 197.0 bu/acre vs 134.0 predicted (+63.0 deviation)"
   },
   {
     "crop": "corn",
-    "state": "AL",
-    "year": 2014,
-    "actual": 178.9,
-    "predicted": 151.9,
-    "residual": 27.0,
-    "type": "overperformed",
-    "description": "AL corn in 2014: yielded 178.9 bu/acre vs 151.9 predicted (+27.0 deviation)"
-  },
-  {
-    "crop": "corn",
-    "state": "MI",
-    "year": 2024,
-    "actual": 181.6,
-    "predicted": 154.6,
-    "residual": 27.0,
-    "type": "overperformed",
-    "description": "MI corn in 2024: yielded 181.6 bu/acre vs 154.6 predicted (+27.0 deviation)"
+    "state": "WV",
+    "year": 2011,
+    "actual": 89.9,
+    "predicted": 152.7,
+    "residual": -62.8,
+    "type": "underperformed",
+    "description": "WV corn in 2011: yielded 89.9 bu/acre vs 152.7 predicted (-62.8 deviation)"
   },
   {
     "crop": "corn",
     "state": "SC",
     "year": 2014,
     "actual": 99.8,
-    "predicted": 126.5,
-    "residual": -26.8,
+    "predicted": 162.2,
+    "residual": -62.4,
     "type": "underperformed",
-    "description": "SC corn in 2014: yielded 99.8 bu/acre vs 126.5 predicted (-26.8 deviation)"
+    "description": "SC corn in 2014: yielded 99.8 bu/acre vs 162.2 predicted (-62.4 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "SC",
+    "year": 2019,
+    "actual": 79.2,
+    "predicted": 141.4,
+    "residual": -62.1,
+    "type": "underperformed",
+    "description": "SC corn in 2019: yielded 79.2 bu/acre vs 141.4 predicted (-62.1 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "LA",
+    "year": 2023,
+    "actual": 147.9,
+    "predicted": 86.3,
+    "residual": 61.6,
+    "type": "overperformed",
+    "description": "LA corn in 2023: yielded 147.9 bu/acre vs 86.3 predicted (+61.6 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "IL",
+    "year": 2022,
+    "actual": 210.5,
+    "predicted": 149.0,
+    "residual": 61.4,
+    "type": "overperformed",
+    "description": "IL corn in 2022: yielded 210.5 bu/acre vs 149.0 predicted (+61.4 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "IA",
+    "year": 2022,
+    "actual": 200.9,
+    "predicted": 140.1,
+    "residual": 60.8,
+    "type": "overperformed",
+    "description": "IA corn in 2022: yielded 200.9 bu/acre vs 140.1 predicted (+60.8 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "WY",
+    "year": 2022,
+    "actual": 12.6,
+    "predicted": 73.1,
+    "residual": -60.5,
+    "type": "underperformed",
+    "description": "WY corn in 2022: yielded 12.6 bu/acre vs 73.1 predicted (-60.5 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "NC",
+    "year": 2024,
+    "actual": 80.9,
+    "predicted": 140.2,
+    "residual": -59.3,
+    "type": "underperformed",
+    "description": "NC corn in 2024: yielded 80.9 bu/acre vs 140.2 predicted (-59.3 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "DE",
+    "year": 2018,
+    "actual": 111.5,
+    "predicted": 170.0,
+    "residual": -58.5,
+    "type": "underperformed",
+    "description": "DE corn in 2018: yielded 111.5 bu/acre vs 170.0 predicted (-58.5 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "VT",
+    "year": 2015,
+    "actual": 93.0,
+    "predicted": 151.5,
+    "residual": -58.4,
+    "type": "underperformed",
+    "description": "VT corn in 2015: yielded 93.0 bu/acre vs 151.5 predicted (-58.4 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "CO",
+    "year": 2022,
+    "actual": 13.8,
+    "predicted": 71.4,
+    "residual": -57.6,
+    "type": "underperformed",
+    "description": "CO corn in 2022: yielded 13.8 bu/acre vs 71.4 predicted (-57.6 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "TX",
+    "year": 2011,
+    "actual": 38.2,
+    "predicted": -19.4,
+    "residual": 57.6,
+    "type": "overperformed",
+    "description": "TX corn in 2011: yielded 38.2 bu/acre vs -19.4 predicted (+57.6 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "IN",
+    "year": 2024,
+    "actual": 203.6,
+    "predicted": 147.0,
+    "residual": 56.6,
+    "type": "overperformed",
+    "description": "IN corn in 2024: yielded 203.6 bu/acre vs 147.0 predicted (+56.6 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "MN",
+    "year": 2020,
+    "actual": 186.5,
+    "predicted": 130.0,
+    "residual": 56.5,
+    "type": "overperformed",
+    "description": "MN corn in 2020: yielded 186.5 bu/acre vs 130.0 predicted (+56.5 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "IL",
+    "year": 2020,
+    "actual": 190.4,
+    "predicted": 134.4,
+    "residual": 56.1,
+    "type": "overperformed",
+    "description": "IL corn in 2020: yielded 190.4 bu/acre vs 134.4 predicted (+56.1 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "IN",
+    "year": 2021,
+    "actual": 198.7,
+    "predicted": 142.9,
+    "residual": 55.8,
+    "type": "overperformed",
+    "description": "IN corn in 2021: yielded 198.7 bu/acre vs 142.9 predicted (+55.8 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "IN",
+    "year": 2022,
+    "actual": 199.5,
+    "predicted": 144.1,
+    "residual": 55.5,
+    "type": "overperformed",
+    "description": "IN corn in 2022: yielded 199.5 bu/acre vs 144.1 predicted (+55.5 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "IL",
+    "year": 2017,
+    "actual": 193.2,
+    "predicted": 137.8,
+    "residual": 55.4,
+    "type": "overperformed",
+    "description": "IL corn in 2017: yielded 193.2 bu/acre vs 137.8 predicted (+55.4 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "OH",
+    "year": 2023,
+    "actual": 205.4,
+    "predicted": 149.9,
+    "residual": 55.4,
+    "type": "overperformed",
+    "description": "OH corn in 2023: yielded 205.4 bu/acre vs 149.9 predicted (+55.4 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "VT",
+    "year": 2019,
+    "actual": 101.0,
+    "predicted": 156.4,
+    "residual": -55.3,
+    "type": "underperformed",
+    "description": "VT corn in 2019: yielded 101.0 bu/acre vs 156.4 predicted (-55.3 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "MN",
+    "year": 2023,
+    "actual": 171.2,
+    "predicted": 116.2,
+    "residual": 55.0,
+    "type": "overperformed",
+    "description": "MN corn in 2023: yielded 171.2 bu/acre vs 116.2 predicted (+55.0 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "MO",
+    "year": 2014,
+    "actual": 182.3,
+    "predicted": 127.3,
+    "residual": 55.0,
+    "type": "overperformed",
+    "description": "MO corn in 2014: yielded 182.3 bu/acre vs 127.3 predicted (+55.0 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "IA",
+    "year": 2016,
+    "actual": 205.1,
+    "predicted": 151.1,
+    "residual": 54.0,
+    "type": "overperformed",
+    "description": "IA corn in 2016: yielded 205.1 bu/acre vs 151.1 predicted (+54.0 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "NC",
+    "year": 2011,
+    "actual": 80.2,
+    "predicted": 134.0,
+    "residual": -53.8,
+    "type": "underperformed",
+    "description": "NC corn in 2011: yielded 80.2 bu/acre vs 134.0 predicted (-53.8 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "NC",
+    "year": 2018,
+    "actual": 112.9,
+    "predicted": 166.8,
+    "residual": -53.8,
+    "type": "underperformed",
+    "description": "NC corn in 2018: yielded 112.9 bu/acre vs 166.8 predicted (-53.8 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "NC",
+    "year": 2020,
+    "actual": 110.5,
+    "predicted": 164.4,
+    "residual": -53.8,
+    "type": "underperformed",
+    "description": "NC corn in 2020: yielded 110.5 bu/acre vs 164.4 predicted (-53.8 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "WI",
+    "year": 2023,
+    "actual": 169.9,
+    "predicted": 116.6,
+    "residual": 53.3,
+    "type": "overperformed",
+    "description": "WI corn in 2023: yielded 169.9 bu/acre vs 116.6 predicted (+53.3 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "VA",
+    "year": 2024,
+    "actual": 86.0,
+    "predicted": 139.2,
+    "residual": -53.2,
+    "type": "underperformed",
+    "description": "VA corn in 2024: yielded 86.0 bu/acre vs 139.2 predicted (-53.2 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "IL",
+    "year": 2018,
+    "actual": 202.6,
+    "predicted": 149.7,
+    "residual": 52.9,
+    "type": "overperformed",
+    "description": "IL corn in 2018: yielded 202.6 bu/acre vs 149.7 predicted (+52.9 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "IN",
+    "year": 2020,
+    "actual": 192.2,
+    "predicted": 139.3,
+    "residual": 52.9,
+    "type": "overperformed",
+    "description": "IN corn in 2020: yielded 192.2 bu/acre vs 139.3 predicted (+52.9 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "DE",
+    "year": 2012,
+    "actual": 87.1,
+    "predicted": 139.9,
+    "residual": -52.8,
+    "type": "underperformed",
+    "description": "DE corn in 2012: yielded 87.1 bu/acre vs 139.9 predicted (-52.8 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "CO",
+    "year": 2020,
+    "actual": 20.7,
+    "predicted": 73.1,
+    "residual": -52.4,
+    "type": "underperformed",
+    "description": "CO corn in 2020: yielded 20.7 bu/acre vs 73.1 predicted (-52.4 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "NJ",
+    "year": 2022,
+    "actual": 100.9,
+    "predicted": 152.8,
+    "residual": -51.9,
+    "type": "underperformed",
+    "description": "NJ corn in 2022: yielded 100.9 bu/acre vs 152.8 predicted (-51.9 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "MN",
+    "year": 2022,
+    "actual": 186.0,
+    "predicted": 134.2,
+    "residual": 51.8,
+    "type": "overperformed",
+    "description": "MN corn in 2022: yielded 186.0 bu/acre vs 134.2 predicted (+51.8 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "SC",
+    "year": 2020,
+    "actual": 109.0,
+    "predicted": 160.8,
+    "residual": -51.8,
+    "type": "underperformed",
+    "description": "SC corn in 2020: yielded 109.0 bu/acre vs 160.8 predicted (-51.8 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "LA",
+    "year": 2011,
+    "actual": 104.2,
+    "predicted": 52.6,
+    "residual": 51.6,
+    "type": "overperformed",
+    "description": "LA corn in 2011: yielded 104.2 bu/acre vs 52.6 predicted (+51.6 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "WY",
+    "year": 2013,
+    "actual": 29.3,
+    "predicted": 80.1,
+    "residual": -50.8,
+    "type": "underperformed",
+    "description": "WY corn in 2013: yielded 29.3 bu/acre vs 80.1 predicted (-50.8 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "SC",
+    "year": 2022,
+    "actual": 103.8,
+    "predicted": 154.5,
+    "residual": -50.7,
+    "type": "underperformed",
+    "description": "SC corn in 2022: yielded 103.8 bu/acre vs 154.5 predicted (-50.7 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "MN",
+    "year": 2016,
+    "actual": 191.8,
+    "predicted": 142.9,
+    "residual": 48.9,
+    "type": "overperformed",
+    "description": "MN corn in 2016: yielded 191.8 bu/acre vs 142.9 predicted (+48.9 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "SC",
+    "year": 2018,
+    "actual": 103.7,
+    "predicted": 152.6,
+    "residual": -48.9,
+    "type": "underperformed",
+    "description": "SC corn in 2018: yielded 103.7 bu/acre vs 152.6 predicted (-48.9 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "MN",
+    "year": 2017,
+    "actual": 186.3,
+    "predicted": 137.6,
+    "residual": 48.8,
+    "type": "overperformed",
+    "description": "MN corn in 2017: yielded 186.3 bu/acre vs 137.6 predicted (+48.8 deviation)"
   },
   {
     "crop": "corn",
     "state": "DE",
     "year": 2011,
     "actual": 95.3,
-    "predicted": 121.7,
-    "residual": -26.4,
+    "predicted": 143.5,
+    "residual": -48.2,
     "type": "underperformed",
-    "description": "DE corn in 2011: yielded 95.3 bu/acre vs 121.7 predicted (-26.4 deviation)"
+    "description": "DE corn in 2011: yielded 95.3 bu/acre vs 143.5 predicted (-48.2 deviation)"
+  },
+  {
+    "crop": "corn",
+    "state": "SC",
+    "year": 2013,
+    "actual": 120.7,
+    "predicted": 168.5,
+    "residual": -47.8,
+    "type": "underperformed",
+    "description": "SC corn in 2013: yielded 120.7 bu/acre vs 168.5 predicted (-47.8 deviation)"
   },
   {
     "crop": "corn",
     "state": "AL",
-    "year": 2019,
-    "actual": 161.1,
-    "predicted": 134.9,
-    "residual": 26.2,
-    "type": "overperformed",
-    "description": "AL corn in 2019: yielded 161.1 bu/acre vs 134.9 predicted (+26.2 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "IL",
-    "year": 2023,
-    "actual": 62.2,
-    "predicted": 45.2,
-    "residual": 17.0,
-    "type": "overperformed",
-    "description": "IL soybeans in 2023: yielded 62.2 bu/acre vs 45.2 predicted (+17.0 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "KS",
-    "year": 2023,
-    "actual": 21.5,
-    "predicted": 37.7,
-    "residual": -16.2,
+    "year": 2012,
+    "actual": 82.4,
+    "predicted": 129.8,
+    "residual": -47.4,
     "type": "underperformed",
-    "description": "KS soybeans in 2023: yielded 21.5 bu/acre vs 37.7 predicted (-16.2 deviation)"
+    "description": "AL corn in 2012: yielded 82.4 bu/acre vs 129.8 predicted (-47.4 deviation)"
   },
   {
-    "crop": "soybeans",
-    "state": "NE",
-    "year": 2023,
-    "actual": 33.4,
-    "predicted": 48.1,
-    "residual": -14.7,
-    "type": "underperformed",
-    "description": "NE soybeans in 2023: yielded 33.4 bu/acre vs 48.1 predicted (-14.7 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "VA",
+    "crop": "corn",
+    "state": "IA",
     "year": 2013,
-    "actual": 34.8,
-    "predicted": 47.5,
-    "residual": -12.7,
-    "type": "underperformed",
-    "description": "VA soybeans in 2013: yielded 34.8 bu/acre vs 47.5 predicted (-12.7 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "IL",
-    "year": 2024,
-    "actual": 61.4,
-    "predicted": 49.1,
-    "residual": 12.4,
+    "actual": 159.0,
+    "predicted": 111.7,
+    "residual": 47.3,
     "type": "overperformed",
-    "description": "IL soybeans in 2024: yielded 61.4 bu/acre vs 49.1 predicted (+12.4 deviation)"
+    "description": "IA corn in 2013: yielded 159.0 bu/acre vs 111.7 predicted (+47.3 deviation)"
   },
   {
-    "crop": "soybeans",
-    "state": "AL",
-    "year": 2023,
-    "actual": 43.3,
-    "predicted": 32.0,
-    "residual": 11.3,
-    "type": "overperformed",
-    "description": "AL soybeans in 2023: yielded 43.3 bu/acre vs 32.0 predicted (+11.3 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "IL",
-    "year": 2022,
-    "actual": 60.8,
-    "predicted": 49.7,
-    "residual": 11.1,
-    "type": "overperformed",
-    "description": "IL soybeans in 2022: yielded 60.8 bu/acre vs 49.7 predicted (+11.1 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "IL",
+    "crop": "corn",
+    "state": "MN",
     "year": 2018,
-    "actual": 62.7,
-    "predicted": 51.7,
-    "residual": 11.0,
+    "actual": 176.4,
+    "predicted": 130.1,
+    "residual": 46.3,
     "type": "overperformed",
-    "description": "IL soybeans in 2018: yielded 62.7 bu/acre vs 51.7 predicted (+11.0 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "IN",
-    "year": 2024,
-    "actual": 57.8,
-    "predicted": 46.8,
-    "residual": 10.9,
-    "type": "overperformed",
-    "description": "IN soybeans in 2024: yielded 57.8 bu/acre vs 46.8 predicted (+10.9 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "KY",
-    "year": 2023,
-    "actual": 54.2,
-    "predicted": 43.4,
-    "residual": 10.8,
-    "type": "overperformed",
-    "description": "KY soybeans in 2023: yielded 54.2 bu/acre vs 43.4 predicted (+10.8 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "IL",
-    "year": 2021,
-    "actual": 63.2,
-    "predicted": 52.7,
-    "residual": 10.5,
-    "type": "overperformed",
-    "description": "IL soybeans in 2021: yielded 63.2 bu/acre vs 52.7 predicted (+10.5 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "WV",
-    "year": 2010,
-    "actual": 18.9,
-    "predicted": 29.3,
-    "residual": -10.4,
-    "type": "underperformed",
-    "description": "WV soybeans in 2010: yielded 18.9 bu/acre vs 29.3 predicted (-10.4 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "AR",
-    "year": 2023,
-    "actual": 37.1,
-    "predicted": 26.9,
-    "residual": 10.2,
-    "type": "overperformed",
-    "description": "AR soybeans in 2023: yielded 37.1 bu/acre vs 26.9 predicted (+10.2 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "OK",
-    "year": 2024,
-    "actual": 14.8,
-    "predicted": 24.6,
-    "residual": -9.9,
-    "type": "underperformed",
-    "description": "OK soybeans in 2024: yielded 14.8 bu/acre vs 24.6 predicted (-9.9 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "IA",
-    "year": 2024,
-    "actual": 61.8,
-    "predicted": 52.6,
-    "residual": 9.1,
-    "type": "overperformed",
-    "description": "IA soybeans in 2024: yielded 61.8 bu/acre vs 52.6 predicted (+9.1 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "MS",
-    "year": 2023,
-    "actual": 37.8,
-    "predicted": 28.8,
-    "residual": 9.1,
-    "type": "overperformed",
-    "description": "MS soybeans in 2023: yielded 37.8 bu/acre vs 28.8 predicted (+9.1 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "TX",
-    "year": 2023,
-    "actual": 21.5,
-    "predicted": 12.4,
-    "residual": 9.0,
-    "type": "overperformed",
-    "description": "TX soybeans in 2023: yielded 21.5 bu/acre vs 12.4 predicted (+9.0 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "IN",
-    "year": 2023,
-    "actual": 61.4,
-    "predicted": 52.5,
-    "residual": 8.9,
-    "type": "overperformed",
-    "description": "IN soybeans in 2023: yielded 61.4 bu/acre vs 52.5 predicted (+8.9 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "NY",
-    "year": 2024,
-    "actual": 56.3,
-    "predicted": 47.6,
-    "residual": 8.7,
-    "type": "overperformed",
-    "description": "NY soybeans in 2024: yielded 56.3 bu/acre vs 47.6 predicted (+8.7 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "IA",
-    "year": 2016,
-    "actual": 61.2,
-    "predicted": 52.8,
-    "residual": 8.4,
-    "type": "overperformed",
-    "description": "IA soybeans in 2016: yielded 61.2 bu/acre vs 52.8 predicted (+8.4 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "AL",
-    "year": 2024,
-    "actual": 28.2,
-    "predicted": 36.6,
-    "residual": -8.3,
-    "type": "underperformed",
-    "description": "AL soybeans in 2024: yielded 28.2 bu/acre vs 36.6 predicted (-8.3 deviation)"
+    "description": "MN corn in 2018: yielded 176.4 bu/acre vs 130.1 predicted (+46.3 deviation)"
   },
   {
     "crop": "soybeans",
     "state": "SC",
     "year": 2018,
     "actual": 16.2,
-    "predicted": 24.5,
-    "residual": -8.3,
+    "predicted": 40.8,
+    "residual": -24.5,
     "type": "underperformed",
-    "description": "SC soybeans in 2018: yielded 16.2 bu/acre vs 24.5 predicted (-8.3 deviation)"
+    "description": "SC soybeans in 2018: yielded 16.2 bu/acre vs 40.8 predicted (-24.5 deviation)"
   },
   {
     "crop": "soybeans",
-    "state": "VA",
-    "year": 2023,
-    "actual": 38.3,
-    "predicted": 46.5,
-    "residual": -8.2,
+    "state": "WV",
+    "year": 2010,
+    "actual": 18.9,
+    "predicted": 43.4,
+    "residual": -24.5,
     "type": "underperformed",
-    "description": "VA soybeans in 2023: yielded 38.3 bu/acre vs 46.5 predicted (-8.2 deviation)"
+    "description": "WV soybeans in 2010: yielded 18.9 bu/acre vs 43.4 predicted (-24.5 deviation)"
   },
   {
     "crop": "soybeans",
-    "state": "NJ",
-    "year": 2016,
-    "actual": 34.5,
-    "predicted": 42.4,
-    "residual": -8.0,
-    "type": "underperformed",
-    "description": "NJ soybeans in 2016: yielded 34.5 bu/acre vs 42.4 predicted (-8.0 deviation)"
+    "state": "IA",
+    "year": 2021,
+    "actual": 63.6,
+    "predicted": 41.8,
+    "residual": 21.8,
+    "type": "overperformed",
+    "description": "IA soybeans in 2021: yielded 63.6 bu/acre vs 41.8 predicted (+21.8 deviation)"
   },
   {
     "crop": "soybeans",
     "state": "IL",
-    "year": 2016,
-    "actual": 59.4,
-    "predicted": 51.5,
-    "residual": 7.9,
-    "type": "overperformed",
-    "description": "IL soybeans in 2016: yielded 59.4 bu/acre vs 51.5 predicted (+7.9 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "NJ",
     "year": 2023,
-    "actual": 42.4,
-    "predicted": 50.2,
-    "residual": -7.8,
-    "type": "underperformed",
-    "description": "NJ soybeans in 2023: yielded 42.4 bu/acre vs 50.2 predicted (-7.8 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "VA",
-    "year": 2014,
-    "actual": 39.0,
-    "predicted": 46.3,
-    "residual": -7.3,
-    "type": "underperformed",
-    "description": "VA soybeans in 2014: yielded 39.0 bu/acre vs 46.3 predicted (-7.3 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "IA",
-    "year": 2012,
-    "actual": 45.5,
-    "predicted": 38.2,
-    "residual": 7.2,
+    "actual": 62.2,
+    "predicted": 40.3,
+    "residual": 21.8,
     "type": "overperformed",
-    "description": "IA soybeans in 2012: yielded 45.5 bu/acre vs 38.2 predicted (+7.2 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "NJ",
-    "year": 2015,
-    "actual": 35.7,
-    "predicted": 42.9,
-    "residual": -7.2,
-    "type": "underperformed",
-    "description": "NJ soybeans in 2015: yielded 35.7 bu/acre vs 42.9 predicted (-7.2 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "VA",
-    "year": 2016,
-    "actual": 32.1,
-    "predicted": 39.3,
-    "residual": -7.2,
-    "type": "underperformed",
-    "description": "VA soybeans in 2016: yielded 32.1 bu/acre vs 39.3 predicted (-7.2 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "IA",
-    "year": 2022,
-    "actual": 59.0,
-    "predicted": 52.0,
-    "residual": 7.1,
-    "type": "overperformed",
-    "description": "IA soybeans in 2022: yielded 59.0 bu/acre vs 52.0 predicted (+7.1 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "OK",
-    "year": 2023,
-    "actual": 17.8,
-    "predicted": 24.8,
-    "residual": -7.0,
-    "type": "underperformed",
-    "description": "OK soybeans in 2023: yielded 17.8 bu/acre vs 24.8 predicted (-7.0 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "PA",
-    "year": 2024,
-    "actual": 43.0,
-    "predicted": 50.0,
-    "residual": -7.0,
-    "type": "underperformed",
-    "description": "PA soybeans in 2024: yielded 43.0 bu/acre vs 50.0 predicted (-7.0 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "IA",
-    "year": 2023,
-    "actual": 58.3,
-    "predicted": 51.4,
-    "residual": 6.9,
-    "type": "overperformed",
-    "description": "IA soybeans in 2023: yielded 58.3 bu/acre vs 51.4 predicted (+6.9 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "NC",
-    "year": 2013,
-    "actual": 32.0,
-    "predicted": 38.7,
-    "residual": -6.7,
-    "type": "underperformed",
-    "description": "NC soybeans in 2013: yielded 32.0 bu/acre vs 38.7 predicted (-6.7 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "AL",
-    "year": 2012,
-    "actual": 46.6,
-    "predicted": 40.2,
-    "residual": 6.5,
-    "type": "overperformed",
-    "description": "AL soybeans in 2012: yielded 46.6 bu/acre vs 40.2 predicted (+6.5 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "KY",
-    "year": 2024,
-    "actual": 46.2,
-    "predicted": 39.7,
-    "residual": 6.5,
-    "type": "overperformed",
-    "description": "KY soybeans in 2024: yielded 46.2 bu/acre vs 39.7 predicted (+6.5 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "OH",
-    "year": 2023,
-    "actual": 57.6,
-    "predicted": 51.1,
-    "residual": 6.5,
-    "type": "overperformed",
-    "description": "OH soybeans in 2023: yielded 57.6 bu/acre vs 51.1 predicted (+6.5 deviation)"
+    "description": "IL soybeans in 2023: yielded 62.2 bu/acre vs 40.3 predicted (+21.8 deviation)"
   },
   {
     "crop": "soybeans",
     "state": "SC",
     "year": 2015,
     "actual": 18.1,
-    "predicted": 24.6,
-    "residual": -6.5,
+    "predicted": 37.9,
+    "residual": -19.8,
     "type": "underperformed",
-    "description": "SC soybeans in 2015: yielded 18.1 bu/acre vs 24.6 predicted (-6.5 deviation)"
+    "description": "SC soybeans in 2015: yielded 18.1 bu/acre vs 37.9 predicted (-19.8 deviation)"
   },
   {
     "crop": "soybeans",
-    "state": "WV",
+    "state": "IN",
     "year": 2023,
-    "actual": 41.8,
-    "predicted": 48.3,
-    "residual": -6.5,
-    "type": "underperformed",
-    "description": "WV soybeans in 2023: yielded 41.8 bu/acre vs 48.3 predicted (-6.5 deviation)"
+    "actual": 61.4,
+    "predicted": 41.7,
+    "residual": 19.7,
+    "type": "overperformed",
+    "description": "IN soybeans in 2023: yielded 61.4 bu/acre vs 41.7 predicted (+19.7 deviation)"
   },
   {
     "crop": "soybeans",
-    "state": "NJ",
-    "year": 2022,
-    "actual": 27.4,
-    "predicted": 33.7,
-    "residual": -6.4,
-    "type": "underperformed",
-    "description": "NJ soybeans in 2022: yielded 27.4 bu/acre vs 33.7 predicted (-6.4 deviation)"
+    "state": "IL",
+    "year": 2021,
+    "actual": 63.2,
+    "predicted": 43.8,
+    "residual": 19.3,
+    "type": "overperformed",
+    "description": "IL soybeans in 2021: yielded 63.2 bu/acre vs 43.8 predicted (+19.3 deviation)"
   },
   {
     "crop": "soybeans",
-    "state": "PA",
-    "year": 2022,
-    "actual": 39.9,
+    "state": "IL",
+    "year": 2018,
+    "actual": 62.7,
+    "predicted": 44.1,
+    "residual": 18.6,
+    "type": "overperformed",
+    "description": "IL soybeans in 2018: yielded 62.7 bu/acre vs 44.1 predicted (+18.6 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "IA",
+    "year": 2023,
+    "actual": 58.3,
+    "predicted": 39.7,
+    "residual": 18.5,
+    "type": "overperformed",
+    "description": "IA soybeans in 2023: yielded 58.3 bu/acre vs 39.7 predicted (+18.5 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "IL",
+    "year": 2024,
+    "actual": 61.4,
+    "predicted": 43.3,
+    "residual": 18.2,
+    "type": "overperformed",
+    "description": "IL soybeans in 2024: yielded 61.4 bu/acre vs 43.3 predicted (+18.2 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "ND",
+    "year": 2011,
+    "actual": 29.2,
     "predicted": 46.4,
-    "residual": -6.4,
+    "residual": -17.2,
     "type": "underperformed",
-    "description": "PA soybeans in 2022: yielded 39.9 bu/acre vs 46.4 predicted (-6.4 deviation)"
+    "description": "ND soybeans in 2011: yielded 29.2 bu/acre vs 46.4 predicted (-17.2 deviation)"
   },
   {
     "crop": "soybeans",
-    "state": "VA",
-    "year": 2010,
-    "actual": 19.3,
-    "predicted": 25.7,
-    "residual": -6.4,
-    "type": "underperformed",
-    "description": "VA soybeans in 2010: yielded 19.3 bu/acre vs 25.7 predicted (-6.4 deviation)"
+    "state": "NE",
+    "year": 2021,
+    "actual": 55.7,
+    "predicted": 38.7,
+    "residual": 17.0,
+    "type": "overperformed",
+    "description": "NE soybeans in 2021: yielded 55.7 bu/acre vs 38.7 predicted (+17.0 deviation)"
   },
   {
     "crop": "soybeans",
-    "state": "VA",
-    "year": 2015,
-    "actual": 31.2,
-    "predicted": 37.6,
-    "residual": -6.4,
-    "type": "underperformed",
-    "description": "VA soybeans in 2015: yielded 31.2 bu/acre vs 37.6 predicted (-6.4 deviation)"
+    "state": "IA",
+    "year": 2024,
+    "actual": 61.8,
+    "predicted": 45.0,
+    "residual": 16.8,
+    "type": "overperformed",
+    "description": "IA soybeans in 2024: yielded 61.8 bu/acre vs 45.0 predicted (+16.8 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "IL",
+    "year": 2022,
+    "actual": 60.8,
+    "predicted": 44.0,
+    "residual": 16.8,
+    "type": "overperformed",
+    "description": "IL soybeans in 2022: yielded 60.8 bu/acre vs 44.0 predicted (+16.8 deviation)"
   },
   {
     "crop": "soybeans",
     "state": "SC",
     "year": 2013,
     "actual": 27.1,
-    "predicted": 33.4,
-    "residual": -6.3,
+    "predicted": 43.9,
+    "residual": -16.8,
     "type": "underperformed",
-    "description": "SC soybeans in 2013: yielded 27.1 bu/acre vs 33.4 predicted (-6.3 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "MO",
-    "year": 2023,
-    "actual": 44.6,
-    "predicted": 38.4,
-    "residual": 6.2,
-    "type": "overperformed",
-    "description": "MO soybeans in 2023: yielded 44.6 bu/acre vs 38.4 predicted (+6.2 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "TN",
-    "year": 2023,
-    "actual": 51.3,
-    "predicted": 45.1,
-    "residual": 6.2,
-    "type": "overperformed",
-    "description": "TN soybeans in 2023: yielded 51.3 bu/acre vs 45.1 predicted (+6.2 deviation)"
-  },
-  {
-    "crop": "soybeans",
-    "state": "MO",
-    "year": 2024,
-    "actual": 45.3,
-    "predicted": 39.2,
-    "residual": 6.1,
-    "type": "overperformed",
-    "description": "MO soybeans in 2024: yielded 45.3 bu/acre vs 39.2 predicted (+6.1 deviation)"
+    "description": "SC soybeans in 2013: yielded 27.1 bu/acre vs 43.9 predicted (-16.8 deviation)"
   },
   {
     "crop": "soybeans",
     "state": "NJ",
+    "year": 2022,
+    "actual": 27.4,
+    "predicted": 43.8,
+    "residual": -16.4,
+    "type": "underperformed",
+    "description": "NJ soybeans in 2022: yielded 27.4 bu/acre vs 43.8 predicted (-16.4 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "VA",
+    "year": 2010,
+    "actual": 19.3,
+    "predicted": 35.7,
+    "residual": -16.4,
+    "type": "underperformed",
+    "description": "VA soybeans in 2010: yielded 19.3 bu/acre vs 35.7 predicted (-16.4 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "KS",
+    "year": 2023,
+    "actual": 21.5,
+    "predicted": 37.2,
+    "residual": -15.7,
+    "type": "underperformed",
+    "description": "KS soybeans in 2023: yielded 21.5 bu/acre vs 37.2 predicted (-15.7 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "IA",
+    "year": 2022,
+    "actual": 59.0,
+    "predicted": 43.9,
+    "residual": 15.2,
+    "type": "overperformed",
+    "description": "IA soybeans in 2022: yielded 59.0 bu/acre vs 43.9 predicted (+15.2 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "SC",
     "year": 2019,
-    "actual": 37.0,
-    "predicted": 43.1,
-    "residual": -6.1,
+    "actual": 22.1,
+    "predicted": 37.1,
+    "residual": -15.0,
     "type": "underperformed",
-    "description": "NJ soybeans in 2019: yielded 37.0 bu/acre vs 43.1 predicted (-6.1 deviation)"
+    "description": "SC soybeans in 2019: yielded 22.1 bu/acre vs 37.1 predicted (-15.0 deviation)"
   },
   {
     "crop": "soybeans",
-    "state": "NJ",
-    "year": 2013,
-    "actual": 41.5,
-    "predicted": 47.5,
-    "residual": -6.0,
+    "state": "IA",
+    "year": 2016,
+    "actual": 61.2,
+    "predicted": 46.5,
+    "residual": 14.8,
+    "type": "overperformed",
+    "description": "IA soybeans in 2016: yielded 61.2 bu/acre vs 46.5 predicted (+14.8 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "IN",
+    "year": 2020,
+    "actual": 57.6,
+    "predicted": 42.7,
+    "residual": 14.8,
+    "type": "overperformed",
+    "description": "IN soybeans in 2020: yielded 57.6 bu/acre vs 42.7 predicted (+14.8 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "ND",
+    "year": 2019,
+    "actual": 33.2,
+    "predicted": 47.6,
+    "residual": -14.4,
     "type": "underperformed",
-    "description": "NJ soybeans in 2013: yielded 41.5 bu/acre vs 47.5 predicted (-6.0 deviation)"
+    "description": "ND soybeans in 2019: yielded 33.2 bu/acre vs 47.6 predicted (-14.4 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "IL",
+    "year": 2017,
+    "actual": 56.8,
+    "predicted": 42.5,
+    "residual": 14.3,
+    "type": "overperformed",
+    "description": "IL soybeans in 2017: yielded 56.8 bu/acre vs 42.5 predicted (+14.3 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "OK",
+    "year": 2021,
+    "actual": 17.6,
+    "predicted": 31.8,
+    "residual": -14.1,
+    "type": "underperformed",
+    "description": "OK soybeans in 2021: yielded 17.6 bu/acre vs 31.8 predicted (-14.1 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "IL",
+    "year": 2016,
+    "actual": 59.4,
+    "predicted": 45.3,
+    "residual": 14.0,
+    "type": "overperformed",
+    "description": "IL soybeans in 2016: yielded 59.4 bu/acre vs 45.3 predicted (+14.0 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "IN",
+    "year": 2022,
+    "actual": 58.2,
+    "predicted": 44.2,
+    "residual": 14.0,
+    "type": "overperformed",
+    "description": "IN soybeans in 2022: yielded 58.2 bu/acre vs 44.2 predicted (+14.0 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "IN",
+    "year": 2024,
+    "actual": 57.8,
+    "predicted": 43.8,
+    "residual": 14.0,
+    "type": "overperformed",
+    "description": "IN soybeans in 2024: yielded 57.8 bu/acre vs 43.8 predicted (+14.0 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "IN",
+    "year": 2021,
+    "actual": 58.5,
+    "predicted": 44.6,
+    "residual": 13.9,
+    "type": "overperformed",
+    "description": "IN soybeans in 2021: yielded 58.5 bu/acre vs 44.6 predicted (+13.9 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "KS",
+    "year": 2022,
+    "actual": 21.0,
+    "predicted": 34.8,
+    "residual": -13.8,
+    "type": "underperformed",
+    "description": "KS soybeans in 2022: yielded 21.0 bu/acre vs 34.8 predicted (-13.8 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "LA",
+    "year": 2011,
+    "actual": 30.2,
+    "predicted": 16.3,
+    "residual": 13.8,
+    "type": "overperformed",
+    "description": "LA soybeans in 2011: yielded 30.2 bu/acre vs 16.3 predicted (+13.8 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "NC",
+    "year": 2018,
+    "actual": 30.9,
+    "predicted": 44.7,
+    "residual": -13.8,
+    "type": "underperformed",
+    "description": "NC soybeans in 2018: yielded 30.9 bu/acre vs 44.7 predicted (-13.8 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "IL",
+    "year": 2020,
+    "actual": 57.5,
+    "predicted": 43.8,
+    "residual": 13.7,
+    "type": "overperformed",
+    "description": "IL soybeans in 2020: yielded 57.5 bu/acre vs 43.8 predicted (+13.7 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "NC",
+    "year": 2013,
+    "actual": 32.0,
+    "predicted": 45.7,
+    "residual": -13.6,
+    "type": "underperformed",
+    "description": "NC soybeans in 2013: yielded 32.0 bu/acre vs 45.7 predicted (-13.6 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "OH",
+    "year": 2023,
+    "actual": 57.6,
+    "predicted": 44.0,
+    "residual": 13.6,
+    "type": "overperformed",
+    "description": "OH soybeans in 2023: yielded 57.6 bu/acre vs 44.0 predicted (+13.6 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "ND",
+    "year": 2021,
+    "actual": 23.4,
+    "predicted": 36.8,
+    "residual": -13.5,
+    "type": "underperformed",
+    "description": "ND soybeans in 2021: yielded 23.4 bu/acre vs 36.8 predicted (-13.5 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "NC",
+    "year": 2015,
+    "actual": 28.6,
+    "predicted": 41.9,
+    "residual": -13.3,
+    "type": "underperformed",
+    "description": "NC soybeans in 2015: yielded 28.6 bu/acre vs 41.9 predicted (-13.3 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "IA",
+    "year": 2017,
+    "actual": 56.0,
+    "predicted": 43.3,
+    "residual": 12.7,
+    "type": "overperformed",
+    "description": "IA soybeans in 2017: yielded 56.0 bu/acre vs 43.3 predicted (+12.7 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "LA",
+    "year": 2014,
+    "actual": 50.8,
+    "predicted": 38.2,
+    "residual": 12.6,
+    "type": "overperformed",
+    "description": "LA soybeans in 2014: yielded 50.8 bu/acre vs 38.2 predicted (+12.6 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "SC",
+    "year": 2020,
+    "actual": 30.9,
+    "predicted": 43.4,
+    "residual": -12.5,
+    "type": "underperformed",
+    "description": "SC soybeans in 2020: yielded 30.9 bu/acre vs 43.4 predicted (-12.5 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "VA",
+    "year": 2015,
+    "actual": 31.2,
+    "predicted": 43.7,
+    "residual": -12.5,
+    "type": "underperformed",
+    "description": "VA soybeans in 2015: yielded 31.2 bu/acre vs 43.7 predicted (-12.5 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "IN",
+    "year": 2018,
+    "actual": 57.1,
+    "predicted": 44.9,
+    "residual": 12.2,
+    "type": "overperformed",
+    "description": "IN soybeans in 2018: yielded 57.1 bu/acre vs 44.9 predicted (+12.2 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "ND",
+    "year": 2014,
+    "actual": 32.4,
+    "predicted": 44.4,
+    "residual": -12.0,
+    "type": "underperformed",
+    "description": "ND soybeans in 2014: yielded 32.4 bu/acre vs 44.4 predicted (-12.0 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "WI",
+    "year": 2013,
+    "actual": 35.2,
+    "predicted": 47.1,
+    "residual": -11.9,
+    "type": "underperformed",
+    "description": "WI soybeans in 2013: yielded 35.2 bu/acre vs 47.1 predicted (-11.9 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "ND",
+    "year": 2013,
+    "actual": 32.1,
+    "predicted": 43.9,
+    "residual": -11.8,
+    "type": "underperformed",
+    "description": "ND soybeans in 2013: yielded 32.1 bu/acre vs 43.9 predicted (-11.8 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "IA",
+    "year": 2020,
+    "actual": 54.5,
+    "predicted": 43.0,
+    "residual": 11.5,
+    "type": "overperformed",
+    "description": "IA soybeans in 2020: yielded 54.5 bu/acre vs 43.0 predicted (+11.5 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "KY",
+    "year": 2023,
+    "actual": 54.2,
+    "predicted": 42.7,
+    "residual": 11.5,
+    "type": "overperformed",
+    "description": "KY soybeans in 2023: yielded 54.2 bu/acre vs 42.7 predicted (+11.5 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "SC",
+    "year": 2010,
+    "actual": 21.2,
+    "predicted": 32.7,
+    "residual": -11.5,
+    "type": "underperformed",
+    "description": "SC soybeans in 2010: yielded 21.2 bu/acre vs 32.7 predicted (-11.5 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "NE",
+    "year": 2017,
+    "actual": 51.2,
+    "predicted": 40.0,
+    "residual": 11.2,
+    "type": "overperformed",
+    "description": "NE soybeans in 2017: yielded 51.2 bu/acre vs 40.0 predicted (+11.2 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "IA",
+    "year": 2018,
+    "actual": 56.8,
+    "predicted": 45.7,
+    "residual": 11.1,
+    "type": "overperformed",
+    "description": "IA soybeans in 2018: yielded 56.8 bu/acre vs 45.7 predicted (+11.1 deviation)"
+  },
+  {
+    "crop": "soybeans",
+    "state": "VA",
+    "year": 2016,
+    "actual": 32.1,
+    "predicted": 43.1,
+    "residual": -11.0,
+    "type": "underperformed",
+    "description": "VA soybeans in 2016: yielded 32.1 bu/acre vs 43.1 predicted (-11.0 deviation)"
   }
 ]

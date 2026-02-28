@@ -146,8 +146,8 @@ export default function CorrelationChart() {
 
       <div style={{ fontSize: 12, color: 'var(--text-muted)', lineHeight: 1.6, marginTop: 8, padding: '10px 14px', background: 'var(--bg-tertiary)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border)' }}>
         <strong style={{ color: 'var(--text-secondary)' }}>How to read this:</strong> The percentage shows how much our prediction model relies on each weather factor.
-        Heat stress at 44% means it's the single biggest driver — nearly half of the yield variation our model detects comes from extreme heat days.
-        Based on {chartCrop === 'corn' ? '403' : '377'} state-year observations across 32 states (2010-2024).
+        For example, if heat stress shows 30%, that means extreme heat is responsible for ~30% of the yield variation the model detects.
+        Based on a linear regression across {chartCrop === 'corn' ? '403' : '377'} state-year observations in 32 states (2010-2024).
         Faded bars = not statistically significant.
       </div>
     </div>

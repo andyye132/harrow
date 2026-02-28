@@ -9,8 +9,8 @@ import numpy as np
 import json
 import os
 from scipy import stats
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import r2_score, mean_absolute_error
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'public', 'data')
@@ -108,9 +108,9 @@ for crop, corrs in correlations.items():
         print(f"    {feat:35s} r={data['r']:+.3f} {sig} ({data['strength']})")
 
 # ============================================================
-# 4. Feature importance via Random Forest
+# 4. Linear Regression — feature importance from standardized coefficients
 # ============================================================
-print("\nTraining Random Forest models...")
+print("\nTraining Linear Regression models...")
 
 feature_importance = {}
 model_predictions = {}
@@ -127,49 +127,55 @@ for crop in ['corn', 'soybeans']:
     states = crop_data['state'].values
     years = crop_data['year'].values
 
+    # Standardize features so coefficients are comparable
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+
     # Train/test split: train on 2010-2022, test on 2023-2024
     train_mask = crop_data['year'] <= 2022
     test_mask = crop_data['year'] >= 2023
 
-    X_train, X_test = X[train_mask], X[test_mask]
+    X_train, X_test = X_scaled[train_mask], X_scaled[test_mask]
     y_train, y_test = y[train_mask], y[test_mask]
 
     if len(X_test) == 0 or len(X_train) < 10:
-        # Fallback to random split
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-        train_states = states
-        test_states = states[len(X_train):]
-        train_years = years
-        test_years = years[len(X_train):]
-    else:
-        test_states = states[test_mask]
-        test_years = years[test_mask]
+        from sklearn.model_selection import train_test_split
+        X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
 
-    rf = RandomForestRegressor(n_estimators=100, max_depth=8, random_state=42, n_jobs=-1)
-    rf.fit(X_train, y_train)
+    model = LinearRegression()
+    model.fit(X_train, y_train)
 
-    y_pred = rf.predict(X_test)
+    y_pred = model.predict(X_test)
     r2 = r2_score(y_test, y_pred)
     mae = mean_absolute_error(y_test, y_pred)
 
     print(f"\n  {crop}: R²={r2:.3f}, MAE={mae:.1f} bu/acre")
 
-    # Feature importances
-    importances = dict(zip(available_cols, rf.feature_importances_.round(3).tolist()))
+    # Standardized coefficients — absolute value shows relative importance
+    abs_coefs = np.abs(model.coef_)
+    # Normalize to sum to 1 so they work as "importance" percentages
+    total = abs_coefs.sum()
+    importances = dict(zip(available_cols, (abs_coefs / total).round(3).tolist()))
+
     feature_importance[crop] = {
         'importances': importances,
         'r2': round(r2, 3),
         'mae': round(mae, 1),
         'n_train': int(len(X_train)),
         'n_test': int(len(X_test)),
+        'model': 'linear_regression',
     }
 
-    print(f"  Feature importances:")
+    # Also store raw coefficients for interpretability
+    raw_coefs = dict(zip(available_cols, model.coef_.round(2).tolist()))
+    print(f"  Standardized coefficients (importance):")
     for feat, imp in sorted(importances.items(), key=lambda x: x[1], reverse=True):
-        print(f"    {feat:35s} {imp:.3f}")
+        coef = raw_coefs[feat]
+        direction = '+' if coef > 0 else ''
+        print(f"    {feat:35s} importance={imp:.3f}  coef={direction}{coef:.2f} bu/acre per 1 std")
 
-    # Predictions for visualization
-    all_pred = rf.predict(X)
+    # Predictions for visualization (on all data)
+    all_pred = model.predict(X_scaled)
     residuals = y - all_pred
 
     preds = []

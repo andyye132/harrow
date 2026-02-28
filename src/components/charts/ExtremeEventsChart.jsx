@@ -147,7 +147,7 @@ export default function ExtremeEventsChart() {
                 {e.most_affected.slice(0, 3).map(s => (
                   <span key={s.state} className="extreme-affected-state">
                     {STATE_NAMES[s.state] || s.state}
-                    <span className={isNeg ? 'neg' : 'pos'}> {s.deviation_pct > 0 ? '+' : ''}{s.deviation_pct.toFixed(0)}%</span>
+                    <span className={s.deviation_pct < 0 ? 'neg' : 'pos'}> {s.deviation_pct > 0 ? '+' : ''}{s.deviation_pct.toFixed(0)}%</span>
                     <span className="extreme-affected-yield"> ({s.yield} bu/acre)</span>
                   </span>
                 ))}

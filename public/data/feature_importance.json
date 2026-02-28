@@ -1,30 +1,32 @@
 {
   "corn": {
     "importances": {
-      "growing_season_avg_temp": 0.137,
-      "growing_season_max_temp": 0.204,
-      "growing_season_precip_mm": 0.205,
-      "heat_stress_days": 0.226,
-      "max_dry_spell_days": 0.174,
-      "heavy_rain_days": 0.054
+      "growing_season_avg_temp": 0.261,
+      "growing_season_max_temp": 0.233,
+      "growing_season_precip_mm": 0.065,
+      "heat_stress_days": 0.215,
+      "max_dry_spell_days": 0.164,
+      "heavy_rain_days": 0.062
     },
-    "r2": 0.43,
-    "mae": 28.1,
+    "r2": 0.151,
+    "mae": 35.5,
     "n_train": 403,
-    "n_test": 62
+    "n_test": 62,
+    "model": "linear_regression"
   },
   "soybeans": {
     "importances": {
-      "growing_season_avg_temp": 0.274,
-      "growing_season_max_temp": 0.052,
-      "growing_season_precip_mm": 0.085,
-      "heat_stress_days": 0.436,
-      "max_dry_spell_days": 0.103,
-      "heavy_rain_days": 0.049
+      "growing_season_avg_temp": 0.16,
+      "growing_season_max_temp": 0.058,
+      "growing_season_precip_mm": 0.218,
+      "heat_stress_days": 0.3,
+      "max_dry_spell_days": 0.128,
+      "heavy_rain_days": 0.136
     },
-    "r2": 0.589,
-    "mae": 5.4,
+    "r2": 0.398,
+    "mae": 6.5,
     "n_train": 377,
-    "n_test": 58
+    "n_test": 58,
+    "model": "linear_regression"
   }
 }
