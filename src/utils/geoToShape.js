@@ -86,24 +86,26 @@ export function geoFeatureToShapes(feature) {
 }
 
 /**
- * Get the centroid of a state feature in Three.js coordinates.
- * Uses all polygon rings for accurate multi-polygon centroids.
+ * Get the centroid of a state feature in Three.js world coordinates.
+ * Returns [x, z] where x = east/west, z = north/south.
+ * The mesh rotation (-π/2 around X) maps shape Y to -Z,
+ * so Three.js Z = (p[1] - 305) * 0.01 (positive = south).
  */
 export function getStateCentroid(feature) {
   const polygons = feature.geometry.type === 'MultiPolygon'
     ? feature.geometry.coordinates
     : [feature.geometry.coordinates];
 
-  let sumX = 0, sumY = 0, count = 0;
+  let sumX = 0, sumZ = 0, count = 0;
   for (const polygon of polygons) {
     for (const coord of polygon[0]) {
       const p = projection(coord);
       if (p) {
         sumX += (p[0] - 487.5) * 0.01;
-        sumY += -(p[1] - 305) * 0.01;
+        sumZ += (p[1] - 305) * 0.01;
         count++;
       }
     }
   }
-  return count > 0 ? [sumX / count, sumY / count] : [0, 0];
+  return count > 0 ? [sumX / count, sumZ / count] : [0, 0];
 }
