@@ -2,6 +2,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import useStore from '../../store/useStore';
 import { CROP_GROWING_STATS, cToF } from '../../utils/cropStats';
+import { STATE_NAMES } from '../../utils/geoToShape';
 import './AnomalyMap.css';
 
 /**
@@ -99,7 +100,7 @@ export default function AnomalyMap() {
           >
             <div className="anomaly-card-header">
               <div className="anomaly-card-location">
-                <span className="anomaly-state">{a.state}</span>
+                <span className="anomaly-state">{STATE_NAMES[a.state] || a.state}</span>
                 <span className="anomaly-year">{a.year}</span>
               </div>
               <span className={`anomaly-badge ${a.type}`}>

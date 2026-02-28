@@ -1,106 +1,192 @@
 .econ-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
 }
 
-.econ-summary {
+/* Side-by-side comparison */
+.econ-comparison {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  align-items: stretch;
+  gap: 0;
 }
 
-.econ-crop-card {
+.econ-col {
   flex: 1;
   background: var(--bg-tertiary);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 16px;
+  padding: 24px;
 }
 
-.corn-card {
-  border-top: 3px solid var(--corn);
+.econ-col.corn {
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  border-top: 4px solid var(--corn);
 }
 
-.soy-card {
-  border-top: 3px solid var(--soy);
+.econ-col.soy {
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  border-top: 4px solid var(--soy);
 }
 
-.econ-crop-header {
+.econ-col-header {
   display: flex;
   align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.econ-col-emoji {
+  font-size: 28px;
+}
+
+.econ-col-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.econ-col-body {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
+}
+
+.econ-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.econ-row.total {
+  border-bottom: none;
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 2px solid var(--border);
+}
+
+.econ-row-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.econ-row-value {
+  font-family: var(--font-mono);
   font-size: 16px;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 12px;
+  text-align: right;
 }
 
-.econ-metrics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.econ-row-value small {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-left: 2px;
 }
 
-.econ-metric {
-  display: flex;
-  flex-direction: column;
-  min-width: 70px;
+.econ-row-value.cost {
+  color: var(--danger);
 }
 
-.econ-val {
-  font-family: var(--font-mono);
-  font-size: 15px;
-  font-weight: 700;
+.econ-row-value.profit {
+  font-size: 20px;
+  color: var(--success);
+}
+
+.econ-col-wins {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 8px;
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+}
+
+.econ-col-wins strong {
   color: var(--text-primary);
+  font-size: 16px;
 }
 
-.econ-label {
-  font-size: 10px;
+/* VS divider */
+.econ-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  flex-shrink: 0;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.econ-divider-text {
+  font-size: 16px;
+  font-weight: 700;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.3px;
+  letter-spacing: 1px;
 }
 
-.econ-metric.profit .econ-val {
-  color: var(--success);
-  font-size: 18px;
-}
-
-.econ-vs {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-muted);
-  flex-shrink: 0;
-}
-
+/* Insight callout */
 .econ-insight {
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.7;
   color: var(--text-secondary);
-  padding: 12px 16px;
+  padding: 16px 20px;
   background: var(--bg-tertiary);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--accent);
 }
 
 .econ-insight strong {
   color: var(--text-primary);
 }
 
+/* Chart title */
+.econ-chart-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: -8px;
+}
+
+/* Sources */
 .econ-sources {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
-  line-height: 1.5;
-  font-style: italic;
+  line-height: 1.6;
+  padding: 12px 16px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.econ-sources strong {
+  color: var(--text-secondary);
 }
 
 @media (max-width: 768px) {
-  .econ-summary {
+  .econ-comparison {
     flex-direction: column;
   }
-  .econ-vs {
-    display: none;
+  .econ-col.corn {
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+  .econ-col.soy {
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  }
+  .econ-divider {
+    width: 100%;
+    height: 36px;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    border-top: none;
+    border-bottom: none;
   }
 }

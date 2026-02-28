@@ -7,43 +7,82 @@ dotenv.config();
 
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '2mb' }));
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
 app.post('/api/plant-helper', async (req, res) => {
-  const { state, stateAbbr, crop, plantDate, historicalData } = req.body;
+  const { state, stateAbbr, crop, plantDate, historicalData, chatHistory, userMessage } = req.body;
 
-  const systemPrompt = `You are an expert agricultural advisor with deep knowledge of US crop production. You provide specific, data-backed advice using the historical yield data provided. Be concise, practical, and format your response with clear sections. Use numbers and comparisons. Keep your response under 300 words.`;
+  const systemPrompt = `You are an expert agricultural advisor called "Crop Advisor" built into the Harrow platform. You have deep knowledge of US crop production, weather patterns, and farming economics.
+
+Key facts you know:
+- Corn: ~170 bu/acre national avg, $4.50/bu (USDA NASS 2020-24), ~$400/acre operating cost
+- Soybeans: ~50 bu/acre national avg, $11.50/bu (USDA NASS 2020-24), ~$300/acre operating cost
+- Operating costs include seed, fertilizer, chemicals, fuel, machinery (from USDA ERS 2023)
+- Heat stress days (>95°F) are the #1 yield predictor
+- Growing season: corn Apr-Sep, soybeans May-Sep
+
+Be concise, practical, and friendly. Use numbers and data. Format with **bold** for key terms. Keep responses under 200 words unless the question requires more detail.`;
 
   const historicalContext = historicalData
-    ? `Historical yield data for ${crop} in ${state}:
-- Average yield: ${historicalData.historical_avg} bu/acre
-- Standard deviation: ${historicalData.historical_std} bu/acre
-- Trend: ${historicalData.trend > 0 ? '+' : ''}${historicalData.trend} bu/acre per year
-- Best recent years: ${historicalData.best_recent_years?.map(y => `${y.year}: ${y.avg_yield} bu/acre`).join(', ')}
-- Worst recent years: ${historicalData.worst_recent_years?.map(y => `${y.year}: ${y.avg_yield} bu/acre`).join(', ')}`
-    : 'No historical data available for this state and crop combination.';
+    ? `\n\nHistorical yield data for ${state}:
+${JSON.stringify(historicalData, null, 2)}`
+    : '';
 
   try {
-    const message = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1024,
-      system: systemPrompt,
-      messages: [{
+    // Build messages array — support chat history
+    let messages;
+    if (chatHistory && chatHistory.length > 0) {
+      // Use chat history, injecting context into the first user message
+      messages = chatHistory.map((msg, i) => ({
+        role: msg.role,
+        content: i === 0 && msg.role === 'user'
+          ? `[Context: User is looking at ${state || 'the US map'}.${historicalContext}]\n\n${msg.content}`
+          : msg.content,
+      }));
+      // Add the latest user message
+      if (userMessage) {
+        messages.push({ role: 'user', content: userMessage });
+      }
+    } else {
+      // Legacy single-shot mode
+      messages = [{
         role: 'user',
         content: `A farmer in ${state} (${stateAbbr}) wants to plant ${crop} around ${plantDate}.
-
 ${historicalContext}
 
 Please provide:
 1. VIABILITY: Is this a good idea? Rate the decision and explain why.
-2. HISTORICAL PERFORMANCE: Summarize how ${crop} has performed in ${state} - best/worst years, trends.
-3. WEATHER RISKS: Key weather risks for planting ${crop} around ${plantDate} in ${state}.
+2. HISTORICAL PERFORMANCE: Summarize how ${crop} has performed in ${state}.
+3. WEATHER RISKS: Key weather risks for planting ${crop} around ${plantDate}.
 4. PRACTICAL ADVICE: 2-3 actionable tips for maximizing yield.`
-      }],
+      }];
+    }
+
+    // Ensure messages alternate correctly (Claude requires user/assistant alternation)
+    const cleanMessages = [];
+    for (const msg of messages) {
+      if (cleanMessages.length > 0 && cleanMessages[cleanMessages.length - 1].role === msg.role) {
+        // Merge consecutive same-role messages
+        cleanMessages[cleanMessages.length - 1].content += '\n' + msg.content;
+      } else {
+        cleanMessages.push({ ...msg });
+      }
+    }
+
+    // Ensure first message is from user
+    if (cleanMessages.length > 0 && cleanMessages[0].role !== 'user') {
+      cleanMessages.shift();
+    }
+
+    const message = await anthropic.messages.create({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1024,
+      system: systemPrompt,
+      messages: cleanMessages,
     });
 
     res.json({ response: message.content[0].text });

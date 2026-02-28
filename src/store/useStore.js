@@ -17,6 +17,11 @@ const useStore = create((set) => ({
   pointerPosition: { x: 0, y: 0 },
   drillDownState: null,
 
+  // Chat drawer
+  chatOpen: false,
+  toggleChat: () => set((state) => ({ chatOpen: !state.chatOpen })),
+  setChatOpen: (open) => set({ chatOpen: open }),
+
   // Plant helper
   helperState: null,
   helperCrop: null,

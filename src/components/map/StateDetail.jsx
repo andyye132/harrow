@@ -1,3 +1,4 @@
+import { useEffect, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import useStore from '../../store/useStore';
 import { FIPS_TO_ABBR, STATE_NAMES } from '../../utils/geoToShape';
@@ -13,6 +14,14 @@ export default function StateDetail() {
   const monthlyNormals = useStore(s => s.monthlyNormals);
   const selectedMonth = useStore(s => s.selectedMonth);
   const setSelectedState = useStore(s => s.setSelectedState);
+
+  // ESC to close
+  const handleClose = useCallback(() => setSelectedState(null), [setSelectedState]);
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') handleClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [handleClose]);
 
   const abbr = selectedState ? FIPS_TO_ABBR[selectedState] : null;
   const stateName = abbr ? STATE_NAMES[abbr] : null;
@@ -44,8 +53,11 @@ export default function StateDetail() {
               <h2 className="detail-name">{stateName}</h2>
               <span className="detail-counties">{stateCounties.length} counties with data</span>
             </div>
-            <button className="detail-close" onClick={() => setSelectedState(null)}>
-              &times;
+            <button className="detail-close" onClick={handleClose} title="Close (Esc)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
             </button>
           </div>
 
@@ -235,6 +247,10 @@ export default function StateDetail() {
               </p>
             </div>
           )}
+
+          <button className="detail-back-btn" onClick={handleClose}>
+            &#8592; Back to map
+          </button>
         </motion.div>
       )}
     </AnimatePresence>
