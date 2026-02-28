@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import useStore from '../../store/useStore';
 import YieldTrendChart from './YieldTrendChart';
+import CorrelationChart from './CorrelationChart';
 import AnomalyMap from './AnomalyMap';
 import ExtremeEventsChart from './ExtremeEventsChart';
 import FilterControls from './FilterControls';
@@ -28,7 +29,7 @@ export default function ChartSection() {
       >
         <h2 className="section-title">Data Intelligence</h2>
         <p className="section-subtitle">
-          Yield trends, anomalies, and extreme event analysis across 32 states
+          Yield trends, weather correlations, and anomaly analysis across 32 states (2010-2024). All yields measured in <strong>bushels per acre</strong> (bu/acre).
         </p>
       </motion.div>
 
@@ -44,8 +45,25 @@ export default function ChartSection() {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <h3 className="chart-title">Yield Trends Over Time</h3>
-          <p className="chart-desc">Average yield by state and crop, 2010-2024</p>
+          <p className="chart-desc">
+            Average yield (bu/acre) by crop, 2010-2024. Line shows national average; dashed lines show highest and lowest state averages.
+          </p>
           <YieldTrendChart />
+        </motion.div>
+
+        <motion.div
+          className="chart-card full-width"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          variants={sectionVariants}
+          transition={{ duration: 0.5, delay: 0.15 }}
+        >
+          <h3 className="chart-title">Weather-Yield Correlations</h3>
+          <p className="chart-desc">
+            How strongly each weather feature correlates with yield. Negative means that feature <em>reduces</em> yield. Based on 480 state-year observations with 76 million daily weather records.
+          </p>
+          <CorrelationChart />
         </motion.div>
 
         <motion.div
@@ -56,8 +74,10 @@ export default function ChartSection() {
           variants={sectionVariants}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <h3 className="chart-title">Yield Anomalies</h3>
-          <p className="chart-desc">Counties with unusual yield deviations</p>
+          <h3 className="chart-title">Yield Anomalies by Year</h3>
+          <p className="chart-desc">
+            Counties where yield deviated more than 1.5 standard deviations from their historical average. Select a year to explore.
+          </p>
           <AnomalyMap />
         </motion.div>
 
@@ -70,7 +90,9 @@ export default function ChartSection() {
           transition={{ duration: 0.5, delay: 0.3 }}
         >
           <h3 className="chart-title">Extreme Weather Events</h3>
-          <p className="chart-desc">Yield impact during droughts, floods, and heat waves</p>
+          <p className="chart-desc">
+            How droughts, floods, and heat waves impacted average yields. Bars show % deviation from the 15-year average.
+          </p>
           <ExtremeEventsChart />
         </motion.div>
       </div>

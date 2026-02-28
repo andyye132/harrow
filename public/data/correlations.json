@@ -1,0 +1,90 @@
+{
+  "corn": {
+    "growing_season_avg_temp": {
+      "r": 0.053,
+      "p_value": 0.2546,
+      "significant": false,
+      "direction": "positive",
+      "strength": "weak"
+    },
+    "growing_season_max_temp": {
+      "r": -0.585,
+      "p_value": 0.0,
+      "significant": true,
+      "direction": "negative",
+      "strength": "strong"
+    },
+    "growing_season_precip_mm": {
+      "r": 0.452,
+      "p_value": 0.0,
+      "significant": true,
+      "direction": "positive",
+      "strength": "moderate"
+    },
+    "heat_stress_days": {
+      "r": -0.493,
+      "p_value": 0.0,
+      "significant": true,
+      "direction": "negative",
+      "strength": "moderate"
+    },
+    "max_dry_spell_days": {
+      "r": -0.52,
+      "p_value": 0.0,
+      "significant": true,
+      "direction": "negative",
+      "strength": "strong"
+    },
+    "heavy_rain_days": {
+      "r": 0.199,
+      "p_value": 0.0,
+      "significant": true,
+      "direction": "positive",
+      "strength": "weak"
+    }
+  },
+  "soybeans": {
+    "growing_season_avg_temp": {
+      "r": -0.494,
+      "p_value": 0.0,
+      "significant": true,
+      "direction": "negative",
+      "strength": "moderate"
+    },
+    "growing_season_max_temp": {
+      "r": -0.56,
+      "p_value": 0.0,
+      "significant": true,
+      "direction": "negative",
+      "strength": "strong"
+    },
+    "growing_season_precip_mm": {
+      "r": 0.174,
+      "p_value": 0.0003,
+      "significant": true,
+      "direction": "positive",
+      "strength": "weak"
+    },
+    "heat_stress_days": {
+      "r": -0.669,
+      "p_value": 0.0,
+      "significant": true,
+      "direction": "negative",
+      "strength": "strong"
+    },
+    "max_dry_spell_days": {
+      "r": -0.554,
+      "p_value": 0.0,
+      "significant": true,
+      "direction": "negative",
+      "strength": "strong"
+    },
+    "heavy_rain_days": {
+      "r": -0.14,
+      "p_value": 0.0035,
+      "significant": true,
+      "direction": "negative",
+      "strength": "weak"
+    }
+  }
+}

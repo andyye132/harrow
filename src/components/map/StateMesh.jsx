@@ -17,19 +17,18 @@ export default function StateMesh({ feature, yieldData }) {
   const meshRef = useRef();
   const selectedState = useStore(s => s.selectedState);
   const hoveredState = useStore(s => s.hoveredState);
+  const theme = useStore(s => s.theme);
   const setSelectedState = useStore(s => s.setSelectedState);
   const setHoveredState = useStore(s => s.setHoveredState);
   const setPointerPosition = useStore(s => s.setPointerPosition);
 
   const stateId = feature.id;
-  const abbr = FIPS_TO_ABBR[stateId];
   const isSelected = selectedState === stateId;
   const isHovered = hoveredState === stateId;
   const hasData = !!yieldData;
 
   const shapes = useMemo(() => geoFeatureToShapes(feature), [feature]);
 
-  // Get average yield for color
   const avgYield = useMemo(() => {
     if (!yieldData?.crops) return 0;
     const crops = Object.values(yieldData.crops);
@@ -38,11 +37,12 @@ export default function StateMesh({ feature, yieldData }) {
     return allYears.reduce((a, b) => a + b, 0) / allYears.length;
   }, [yieldData]);
 
-  const baseColor = stateColor(avgYield, hasData);
+  const baseColor = stateColor(avgYield, hasData, theme);
+  const isLight = theme === 'light';
 
   const { scale, emissiveIntensity, posY } = useSpring({
     scale: isSelected ? 8 : isHovered ? 2.5 : 1,
-    emissiveIntensity: isSelected ? 0.5 : isHovered ? 0.3 : 0,
+    emissiveIntensity: isSelected ? 0.4 : isHovered ? 0.25 : 0,
     posY: isSelected ? 0.1 : 0,
     config: { mass: 1, tension: 280, friction: 40 },
   });
@@ -72,9 +72,7 @@ export default function StateMesh({ feature, yieldData }) {
   };
 
   return (
-    <animated.group
-      position-y={posY}
-    >
+    <animated.group position-y={posY}>
       {geometries.map((geo, i) => (
         <animated.mesh
           key={i}
@@ -91,12 +89,12 @@ export default function StateMesh({ feature, yieldData }) {
         >
           <animated.meshStandardMaterial
             color={baseColor}
-            emissive="#8b5cf6"
+            emissive={isLight ? '#6d28d9' : '#8b5cf6'}
             emissiveIntensity={emissiveIntensity}
-            metalness={0.15}
-            roughness={0.7}
+            metalness={isLight ? 0.05 : 0.15}
+            roughness={isLight ? 0.8 : 0.7}
             transparent
-            opacity={hasData ? 1 : 0.4}
+            opacity={hasData ? 1 : (isLight ? 0.6 : 0.4)}
           />
         </animated.mesh>
       ))}

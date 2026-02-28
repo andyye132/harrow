@@ -1,0 +1,30 @@
+{
+  "corn": {
+    "importances": {
+      "growing_season_avg_temp": 0.137,
+      "growing_season_max_temp": 0.204,
+      "growing_season_precip_mm": 0.205,
+      "heat_stress_days": 0.226,
+      "max_dry_spell_days": 0.174,
+      "heavy_rain_days": 0.054
+    },
+    "r2": 0.43,
+    "mae": 28.1,
+    "n_train": 403,
+    "n_test": 62
+  },
+  "soybeans": {
+    "importances": {
+      "growing_season_avg_temp": 0.274,
+      "growing_season_max_temp": 0.052,
+      "growing_season_precip_mm": 0.085,
+      "heat_stress_days": 0.436,
+      "max_dry_spell_days": 0.103,
+      "heavy_rain_days": 0.049
+    },
+    "r2": 0.589,
+    "mae": 5.4,
+    "n_train": 377,
+    "n_test": 58
+  }
+}

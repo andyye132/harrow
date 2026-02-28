@@ -88,9 +88,9 @@ for crop in ['corn', 'soybeans']:
     for col in available_cols:
         r, p = stats.pearsonr(crop_data[col], crop_data['avg_yield'])
         crop_corr[col] = {
-            'r': round(r, 3),
-            'p_value': round(p, 4),
-            'significant': p < 0.05,
+            'r': round(float(r), 3),
+            'p_value': round(float(p), 4),
+            'significant': bool(p < 0.05),
             'direction': 'positive' if r > 0 else 'negative',
             'strength': 'strong' if abs(r) > 0.5 else 'moderate' if abs(r) > 0.3 else 'weak',
         }
@@ -181,7 +181,7 @@ for crop in ['corn', 'soybeans']:
             'actual': round(float(y[i]), 1),
             'predicted': round(float(all_pred[i]), 1),
             'residual': round(float(residuals[i]), 1),
-            'is_anomaly': abs(residuals[i]) > 2 * residuals.std(),
+            'is_anomaly': bool(abs(residuals[i]) > 2 * residuals.std()),
         })
     model_predictions[crop] = preds
 

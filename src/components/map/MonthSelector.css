@@ -9,7 +9,7 @@
 .month-track {
   display: flex;
   gap: 2px;
-  background: rgba(14, 14, 14, 0.9);
+  background: var(--bg-overlay);
   backdrop-filter: blur(12px);
   border: 1px solid var(--border);
   border-radius: 20px;
@@ -35,7 +35,6 @@
 }
 
 .month-btn.active {
-  color: var(--text-primary);
+  color: white;
   background: var(--accent);
-  box-shadow: 0 0 12px var(--accent-glow);
 }

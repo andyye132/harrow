@@ -1,16 +1,12 @@
-import { scaleSequential, scaleLinear } from 'd3-scale';
-
 // Yield color scale: low (red) → mid (amber) → high (green)
 export function yieldColorScale(value, min = 30, max = 250) {
   const t = Math.max(0, Math.min(1, (value - min) / (max - min)));
   if (t < 0.5) {
-    // Red to amber
     const r = 239 + (245 - 239) * (t * 2);
     const g = 68 + (158 - 68) * (t * 2);
     const b = 68 + (11 - 68) * (t * 2);
     return `rgb(${Math.round(r)},${Math.round(g)},${Math.round(b)})`;
   } else {
-    // Amber to green
     const t2 = (t - 0.5) * 2;
     const r = 245 + (34 - 245) * t2;
     const g = 158 + (197 - 158) * t2;
@@ -23,21 +19,26 @@ export function yieldColorScale(value, min = 30, max = 250) {
 export function anomalyColorScale(zScore) {
   const t = Math.max(-3, Math.min(3, zScore));
   if (t < 0) {
-    // Red for low yield anomaly
     const intensity = Math.abs(t) / 3;
     return `rgb(${Math.round(239 * intensity + 40)}, ${Math.round(40 + 28 * (1 - intensity))}, ${Math.round(40 + 28 * (1 - intensity))})`;
   } else {
-    // Blue/violet for high yield anomaly
     const intensity = t / 3;
     return `rgb(${Math.round(40 + 99 * intensity)}, ${Math.round(40 + 52 * intensity)}, ${Math.round(40 + 206 * intensity)})`;
   }
 }
 
-// Three.js color for states based on yield
-export function stateColor(avgYield, hasData) {
-  if (!hasData) return '#1e1e1e';
+// Three.js color for states based on yield — light-mode friendly
+export function stateColor(avgYield, hasData, theme = 'light') {
+  if (!hasData) return theme === 'light' ? '#d4d4d4' : '#1e1e1e';
   const t = Math.max(0, Math.min(1, (avgYield - 30) / 220));
-  // Dark green to bright green
+  if (theme === 'light') {
+    // Earthy tones: light tan → forest green
+    const r = Math.round(180 - t * 120);
+    const g = Math.round(160 + t * 60);
+    const b = Math.round(100 - t * 50);
+    return `rgb(${r},${g},${b})`;
+  }
+  // Dark mode: dark green to bright green
   const r = Math.round(20 + t * 40);
   const g = Math.round(60 + t * 140);
   const b = Math.round(30 + t * 50);
@@ -52,6 +53,6 @@ export const MONTHS = [
 
 // Crop colors
 export const CROP_COLORS = {
-  corn: '#f59e0b',
-  soybeans: '#22c55e',
+  corn: '#d97706',
+  soybeans: '#16a34a',
 };

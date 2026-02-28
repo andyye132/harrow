@@ -2,45 +2,45 @@
   position: fixed;
   z-index: 100;
   pointer-events: none;
-  background: rgba(14, 14, 14, 0.95);
+  background: var(--bg-overlay);
   backdrop-filter: blur(12px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 14px 18px;
-  min-width: 200px;
-  max-width: 280px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  padding: 16px 20px;
+  min-width: 220px;
+  max-width: 300px;
+  box-shadow: 0 8px 32px var(--shadow-lg);
 }
 
 .tooltip-header {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
-  padding-bottom: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--border);
 }
 
 .tooltip-abbr {
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--accent);
   background: var(--accent-glow);
-  padding: 2px 6px;
+  padding: 3px 7px;
   border-radius: 4px;
 }
 
 .tooltip-name {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
   color: var(--text-primary);
 }
 
 .tooltip-body {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .tooltip-row {
@@ -50,55 +50,65 @@
 }
 
 .tooltip-label {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-secondary);
 }
 
 .tooltip-value {
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--text-primary);
 }
 
 .crop-tag {
   text-transform: capitalize;
-  color: var(--accent-light);
+  color: var(--accent);
 }
 
 .tooltip-crop {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 12px;
+  gap: 10px;
+  font-size: 13px;
+  padding: 4px 0;
 }
 
 .crop-name {
   text-transform: capitalize;
-  color: var(--text-secondary);
-  min-width: 65px;
+  color: var(--text-primary);
+  font-weight: 500;
+  min-width: 90px;
 }
 
 .crop-yield {
-  color: var(--text-primary);
+  color: var(--text-secondary);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .crop-trend {
   font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.crop-trend.up { color: var(--success); }
+.crop-trend.down { color: var(--danger); }
+
+.tooltip-hint {
   font-size: 11px;
-}
-
-.crop-trend.up {
-  color: var(--success);
-}
-
-.crop-trend.down {
-  color: var(--danger);
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-style: italic;
 }
 
 .tooltip-no-data {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
-  font-style: italic;
+}
+
+.tooltip-no-data-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  opacity: 0.7;
 }

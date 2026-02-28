@@ -1,12 +1,21 @@
 import { create } from 'zustand';
 
 const useStore = create((set) => ({
+  // Theme
+  theme: 'light',
+  toggleTheme: () => set((state) => {
+    const newTheme = state.theme === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    return { theme: newTheme };
+  }),
+
   // Map interaction
   selectedState: null,
   hoveredState: null,
   selectedMonth: new Date().getMonth(),
   selectedYear: 2024,
   pointerPosition: { x: 0, y: 0 },
+  drillDownState: null, // state FIPS for county drill-down
 
   // Plant helper
   helperState: null,
@@ -32,7 +41,9 @@ const useStore = create((set) => ({
   setSelectedState: (id) => set((state) => ({
     selectedState: state.selectedState === id ? null : id,
     helperState: state.selectedState === id ? state.helperState : id,
+    drillDownState: null, // reset county drill-down
   })),
+  setDrillDownState: (id) => set({ drillDownState: id }),
   setHoveredState: (id) => set({ hoveredState: id }),
   setPointerPosition: (pos) => set({ pointerPosition: pos }),
   setSelectedMonth: (month) => set({ selectedMonth: month }),
