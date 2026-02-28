@@ -1,0 +1,21 @@
+.header {
+  padding: 32px 40px 16px;
+  text-align: left;
+}
+
+.header-title {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.header-tagline {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-top: 6px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}

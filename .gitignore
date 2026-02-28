@@ -1,0 +1,9 @@
+node_modules
+dist
+.env
+.DS_Store
+Data/ghcn_by_year/
+Data/ghcnd-stations.txt
+Data/download_ghcn.sh
+*.csv.gz
+.claude/
