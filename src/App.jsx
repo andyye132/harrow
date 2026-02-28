@@ -30,6 +30,9 @@ export default function App() {
         </div>
         <ChartSection />
       </main>
+      <footer className="site-footer">
+        Built for hackathon project · Data from USDA NASS, USDA ERS, NOAA GHCN · 2025
+      </footer>
       <ChatDrawer />
     </div>
   );

@@ -115,6 +115,26 @@
   gap: 8px;
 }
 
+/* Loading state */
+.chart-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.chart-loading-text {
+  font-size: 15px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
 @media (max-width: 1024px) {
   .chart-section {
     padding: 40px 20px 60px;

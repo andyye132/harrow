@@ -49,16 +49,18 @@
   margin-top: 2px;
 }
 
+/* Close button — prominent with ESC hint */
 .detail-close {
   background: var(--bg-tertiary);
   border: 1px solid var(--border);
   color: var(--text-muted);
   cursor: pointer;
-  padding: 6px;
+  padding: 8px 10px;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   transition: all var(--transition);
   flex-shrink: 0;
 }
@@ -67,6 +69,22 @@
   color: var(--text-primary);
   background: var(--bg-card);
   border-color: var(--text-muted);
+}
+
+.close-hint {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  letter-spacing: 0.5px;
+}
+
+.detail-close:hover .close-hint {
+  color: var(--text-secondary);
 }
 
 .detail-back-btn {
@@ -98,11 +116,125 @@
   gap: 16px;
 }
 
+/* Best crop highlight banner */
+.best-crop-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--accent-glow);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+
+.best-crop-emoji {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.best-crop-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.best-crop-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.best-crop-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-primary);
+  text-transform: capitalize;
+  line-height: 1.2;
+}
+
+.best-crop-yield {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.best-crop-value {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.best-crop-unit {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* Growing conditions from weatherByState */
+.growing-conditions-banner {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.growing-conditions-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.growing-conditions-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.gc-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 4px;
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.gc-val {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.gc-val.gc-warn {
+  color: var(--warning);
+}
+
+.gc-label {
+  font-size: 9px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  text-align: center;
+}
+
+/* Crop card — default and best variant */
 .detail-crop-card {
   background: var(--bg-tertiary);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 16px;
+}
+
+.detail-crop-card--best {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent-glow);
 }
 
 .crop-card-header {
@@ -167,6 +299,61 @@
 .trend-up { color: var(--success) !important; }
 .trend-down { color: var(--danger) !important; }
 
+/* Yield trend row */
+.yield-trend-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.yield-trend--up {
+  background: rgba(22, 163, 74, 0.08);
+  border: 1px solid rgba(22, 163, 74, 0.2);
+}
+
+.yield-trend--down {
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.yield-trend-arrow {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.yield-trend--up .yield-trend-arrow {
+  color: var(--success);
+}
+
+.yield-trend--down .yield-trend-arrow {
+  color: var(--danger);
+}
+
+.yield-trend-pct {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.yield-trend--up .yield-trend-pct {
+  color: var(--success);
+}
+
+.yield-trend--down .yield-trend-pct {
+  color: var(--danger);
+}
+
+.yield-trend-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
 /* Extremes */
 .crop-extremes {
   display: flex;
@@ -211,7 +398,7 @@
   display: block;
 }
 
-/* Growing stats — inspired by the reference images */
+/* Growing stats */
 .growing-stats {
   margin-top: 12px;
   padding-top: 12px;
@@ -225,6 +412,11 @@
   margin-bottom: 8px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .growing-stat-row {
@@ -424,14 +616,6 @@
 }
 
 /* Temp indicator on growing stats */
-.growing-stats-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
 .temp-indicator {
   font-size: 10px;
   font-weight: 600;

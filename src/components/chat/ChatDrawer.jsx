@@ -71,12 +71,24 @@ export default function ChatDrawer() {
           userMessage: text,
         }),
       });
+      if (!res.ok) {
+        throw new Error(`Server responded with ${res.status}`);
+      }
       const data = await res.json();
+      if (!data.response) {
+        throw new Error('Empty response from server');
+      }
       setMessages(prev => [...prev, { role: 'assistant', content: data.response }]);
-    } catch {
+    } catch (err) {
+      const isNetworkOrServer =
+        err instanceof TypeError || // fetch network failure
+        (err.message && /Server responded|Failed to fetch|NetworkError|Empty response/.test(err.message));
+      const fallback = isNetworkOrServer
+        ? 'Chat requires the local server. Run `npm run server` alongside the dev server.'
+        : 'Sorry, something went wrong. Please try again.';
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: 'Sorry, I couldn\'t connect right now. Please try again.',
+        content: fallback,
       }]);
     } finally {
       setLoading(false);

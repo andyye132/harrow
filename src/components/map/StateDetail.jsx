@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import useStore from '../../store/useStore';
 import { FIPS_TO_ABBR, STATE_NAMES } from '../../utils/geoToShape';
@@ -6,12 +6,40 @@ import { CROP_COLORS, MONTHS } from '../../utils/colorScales';
 import { CROP_GROWING_STATS, cToF, getSeasonStatus } from '../../utils/cropStats';
 import './StateDetail.css';
 
+/**
+ * Compute the percentage change vs N years ago from time series data.
+ * Returns { pct, arrow, label } or null if not enough data.
+ */
+function computeYieldTrend(cropTimeSeries, yearsBack = 5) {
+  if (!cropTimeSeries || cropTimeSeries.length < 2) return null;
+  const sorted = [...cropTimeSeries].sort((a, b) => a.year - b.year);
+  const latest = sorted[sorted.length - 1];
+  // Find the entry closest to N years ago
+  const targetYear = latest.year - yearsBack;
+  const past = sorted.reduce((best, entry) => {
+    if (!best) return entry;
+    return Math.abs(entry.year - targetYear) < Math.abs(best.year - targetYear)
+      ? entry
+      : best;
+  }, null);
+  if (!past || past.year === latest.year) return null;
+  const actualGap = latest.year - past.year;
+  const pctChange = ((latest.avg_yield - past.avg_yield) / past.avg_yield) * 100;
+  return {
+    pct: Math.round(pctChange),
+    arrow: pctChange >= 0 ? '\u2191' : '\u2193',
+    direction: pctChange >= 0 ? 'up' : 'down',
+    label: `${actualGap}yr`,
+  };
+}
+
 export default function StateDetail() {
   const selectedState = useStore(s => s.selectedState);
   const stateSummaries = useStore(s => s.stateSummaries);
   const stateYields = useStore(s => s.stateYields);
   const countyYields = useStore(s => s.countyYields);
   const monthlyNormals = useStore(s => s.monthlyNormals);
+  const weatherByState = useStore(s => s.weatherByState);
   const selectedMonth = useStore(s => s.selectedMonth);
   const setSelectedState = useStore(s => s.setSelectedState);
 
@@ -32,10 +60,30 @@ export default function StateDetail() {
   const stateNormals = abbr && monthlyNormals ? monthlyNormals[abbr] : null;
   const currentMonthWeather = stateNormals ? stateNormals[String(selectedMonth + 1)] : null;
 
+  // Growing season weather from weatherByState (yearly data)
+  const latestWeather = useMemo(() => {
+    if (!weatherByState || !abbr) return null;
+    const entries = weatherByState[abbr];
+    if (!entries || entries.length === 0) return null;
+    // Get the most recent year
+    const sorted = [...entries].sort((a, b) => b.year - a.year);
+    return sorted[0];
+  }, [weatherByState, abbr]);
+
   // Get counties for this state
   const stateCounties = countyYields && abbr
     ? Object.entries(countyYields).filter(([fips, data]) => data.state_abbr === abbr)
     : [];
+
+  // Sort crops so best_crop comes first
+  const sortedCrops = useMemo(() => {
+    if (!summary) return [];
+    return Object.entries(summary.crops).sort(([a], [b]) => {
+      if (a === summary.best_crop) return -1;
+      if (b === summary.best_crop) return 1;
+      return 0;
+    });
+  }, [summary]);
 
   return (
     <AnimatePresence>
@@ -54,12 +102,63 @@ export default function StateDetail() {
               <span className="detail-counties">{stateCounties.length} counties with data</span>
             </div>
             <button className="detail-close" onClick={handleClose} title="Close (Esc)">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
+              <span className="close-hint">ESC</span>
             </button>
           </div>
+
+          {/* Best crop highlight banner */}
+          {summary && summary.best_crop && (
+            <div className="best-crop-banner">
+              <span className="best-crop-emoji">{CROP_GROWING_STATS[summary.best_crop]?.emoji}</span>
+              <div className="best-crop-info">
+                <span className="best-crop-label">Top Crop</span>
+                <span className="best-crop-name">{summary.best_crop}</span>
+              </div>
+              <div className="best-crop-yield">
+                <span className="best-crop-value">
+                  {summary.crops[summary.best_crop].recent_avg}
+                </span>
+                <span className="best-crop-unit">bu/acre recent</span>
+              </div>
+            </div>
+          )}
+
+          {/* Growing season conditions from weatherByState */}
+          {latestWeather && (
+            <div className="growing-conditions-banner">
+              <div className="growing-conditions-title">
+                {latestWeather.year} Growing Season Conditions
+              </div>
+              <div className="growing-conditions-grid">
+                <div className="gc-stat">
+                  <span className="gc-val">{cToF(latestWeather.growing_season_avg_temp)}&deg;F</span>
+                  <span className="gc-label">Avg Temp</span>
+                </div>
+                <div className="gc-stat">
+                  <span className={`gc-val ${latestWeather.heat_stress_days > 5 ? 'gc-warn' : ''}`}>
+                    {Math.round(latestWeather.heat_stress_days)}d
+                  </span>
+                  <span className="gc-label">Heat Stress</span>
+                </div>
+                <div className="gc-stat">
+                  <span className={`gc-val ${latestWeather.max_dry_spell_days > 15 ? 'gc-warn' : ''}`}>
+                    {Math.round(latestWeather.max_dry_spell_days)}d
+                  </span>
+                  <span className="gc-label">Max Dry Spell</span>
+                </div>
+                <div className="gc-stat">
+                  <span className="gc-val">
+                    {(latestWeather.growing_season_precip_mm / 25.4).toFixed(1)}&quot;
+                  </span>
+                  <span className="gc-label">Rainfall</span>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Current month weather banner */}
           {currentMonthWeather && (
@@ -69,19 +168,19 @@ export default function StateDetail() {
               </div>
               <div className="month-weather-grid">
                 <div className="mw-stat">
-                  <span className="mw-val">{cToF(currentMonthWeather.avg_high)}°F</span>
+                  <span className="mw-val">{cToF(currentMonthWeather.avg_high)}&deg;F</span>
                   <span className="mw-label">Avg High</span>
                 </div>
                 <div className="mw-stat">
-                  <span className="mw-val">{cToF(currentMonthWeather.avg_low)}°F</span>
+                  <span className="mw-val">{cToF(currentMonthWeather.avg_low)}&deg;F</span>
                   <span className="mw-label">Avg Low</span>
                 </div>
                 <div className="mw-stat">
-                  <span className="mw-val">{cToF(currentMonthWeather.avg_temp)}°F</span>
+                  <span className="mw-val">{cToF(currentMonthWeather.avg_temp)}&deg;F</span>
                   <span className="mw-label">Avg Temp</span>
                 </div>
                 <div className="mw-stat">
-                  <span className="mw-val">{(currentMonthWeather.avg_precip_mm / 25.4).toFixed(1)}"</span>
+                  <span className="mw-val">{(currentMonthWeather.avg_precip_mm / 25.4).toFixed(1)}&quot;</span>
                   <span className="mw-label">Rainfall</span>
                 </div>
               </div>
@@ -101,20 +200,25 @@ export default function StateDetail() {
 
           {summary && (
             <div className="detail-body">
-              {Object.entries(summary.crops).map(([crop, data]) => {
+              {sortedCrops.map(([crop, data]) => {
                 const growingStats = CROP_GROWING_STATS[crop];
+                const isBest = crop === summary.best_crop;
                 // Check if current month temp is in ideal range
                 const tempInRange = currentMonthWeather
                   ? currentMonthWeather.avg_temp >= growingStats.idealTempC.min &&
                     currentMonthWeather.avg_temp <= growingStats.idealTempC.max
                   : null;
 
+                // Compute yield trend vs 5 years ago
+                const cropTimeSeries = yields?.crops?.[crop];
+                const trend5yr = computeYieldTrend(cropTimeSeries, 5);
+
                 return (
-                  <div key={crop} className="detail-crop-card">
+                  <div key={crop} className={`detail-crop-card ${isBest ? 'detail-crop-card--best' : ''}`}>
                     <div className="crop-card-header">
                       <span className="crop-emoji">{growingStats?.emoji}</span>
                       <span className="crop-card-name">{crop}</span>
-                      {crop === summary.best_crop && (
+                      {isBest && (
                         <span className="best-badge">Top crop</span>
                       )}
                     </div>
@@ -143,6 +247,19 @@ export default function StateDetail() {
                       </div>
                     </div>
 
+                    {/* Yield trend vs 5 years ago */}
+                    {trend5yr && (
+                      <div className={`yield-trend-row yield-trend--${trend5yr.direction}`}>
+                        <span className="yield-trend-arrow">{trend5yr.arrow}</span>
+                        <span className="yield-trend-pct">
+                          {trend5yr.pct >= 0 ? '+' : ''}{trend5yr.pct}% vs {trend5yr.label} ago
+                        </span>
+                        <span className="yield-trend-desc">
+                          {trend5yr.direction === 'up' ? 'Yield trending upward' : 'Yield trending downward'}
+                        </span>
+                      </div>
+                    )}
+
                     {/* Best/Worst */}
                     <div className="crop-extremes">
                       <div className="extreme-row best">
@@ -156,9 +273,9 @@ export default function StateDetail() {
                     </div>
 
                     {/* Sparkline */}
-                    {yields?.crops?.[crop] && (
+                    {cropTimeSeries && (
                       <div className="sparkline-container">
-                        <Sparkline data={yields.crops[crop]} color={CROP_COLORS[crop]} />
+                        <Sparkline data={cropTimeSeries} color={CROP_COLORS[crop]} />
                       </div>
                     )}
 
@@ -169,25 +286,25 @@ export default function StateDetail() {
                           Growing Requirements
                           {currentMonthWeather && tempInRange !== null && (
                             <span className={`temp-indicator ${tempInRange ? 'good' : 'bad'}`}>
-                              {tempInRange ? '✓ In range this month' : '✗ Outside range this month'}
+                              {tempInRange ? '\u2713 In range this month' : '\u2717 Outside range this month'}
                             </span>
                           )}
                         </div>
                         {growingStats.stats.map((stat, i) => (
                           <div key={i} className="growing-stat-row">
-                            <span className="growing-check">✓</span>
+                            <span className="growing-check">{'\u2713'}</span>
                             <span className="growing-label">{stat.label}:</span>
                             <span className="growing-value">{stat.value}</span>
                             {stat.note && <span className="growing-note">({stat.note})</span>}
                           </div>
                         ))}
                         <div className="growing-stat-row">
-                          <span className="growing-check">✓</span>
+                          <span className="growing-check">{'\u2713'}</span>
                           <span className="growing-label">Plant:</span>
                           <span className="growing-value">{growingStats.plantingMonths}</span>
                         </div>
                         <div className="growing-stat-row">
-                          <span className="growing-check">✓</span>
+                          <span className="growing-check">{'\u2713'}</span>
                           <span className="growing-label">Harvest:</span>
                           <span className="growing-value">{growingStats.harvestMonths}</span>
                         </div>
@@ -216,7 +333,7 @@ export default function StateDetail() {
                               const latest = years[years.length - 1];
                               return (
                                 <span key={crop} className="county-crop-val">
-                                  <span className="county-crop-emoji">{crop === 'corn' ? '🌽' : '🫘'}</span>
+                                  <span className="county-crop-emoji">{CROP_GROWING_STATS[crop]?.emoji}</span>
                                   <span className="county-yield">{latest.yield}</span>
                                   <span className="county-yield-unit">bu/acre</span>
                                 </span>

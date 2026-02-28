@@ -16,7 +16,15 @@ const sectionVariants = {
 export default function ChartSection() {
   const stateYields = useStore(s => s.stateYields);
 
-  if (!stateYields) return null;
+  if (!stateYields) {
+    return (
+      <section className="chart-section">
+        <div className="chart-loading">
+          <span className="chart-loading-text">Loading data...</span>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="chart-section">

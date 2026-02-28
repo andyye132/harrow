@@ -25,6 +25,19 @@
   border: 1px solid var(--border);
 }
 
+/* Footer */
+.site-footer {
+  text-align: center;
+  padding: 24px 40px;
+  margin-top: 32px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-secondary);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+}
+
 @media (max-width: 1024px) {
   .map-row {
     padding: 0 16px;
@@ -36,5 +49,10 @@
 
   .main-content.chat-open {
     transform: translateX(-160px);
+  }
+
+  .site-footer {
+    padding: 20px 16px;
+    font-size: 11px;
   }
 }

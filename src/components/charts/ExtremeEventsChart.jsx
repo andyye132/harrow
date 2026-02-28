@@ -42,7 +42,6 @@ export default function ExtremeEventsChart() {
     if (!extremeEvents) return [];
     return extremeEvents
       .filter(e => e.crop === chartCrop)
-      .sort((a, b) => a.deviation_pct - b.deviation_pct)
       .map(e => {
         const key = `${e.event}_${e.year}`;
         const context = EVENT_CONTEXT[key] || {};
@@ -65,8 +64,16 @@ export default function ExtremeEventsChart() {
           }
         }
 
-        return { ...e, context, avgWeather };
-      });
+        // Calculate regional average yield impact from the most-affected states
+        let regionalAvg = e.deviation_pct; // fallback to national if no state data
+        if (e.most_affected?.length > 0) {
+          const sum = e.most_affected.reduce((acc, s) => acc + s.deviation_pct, 0);
+          regionalAvg = sum / e.most_affected.length;
+        }
+
+        return { ...e, context, avgWeather, regionalAvg };
+      })
+      .sort((a, b) => a.regionalAvg - b.regionalAvg);
   }, [extremeEvents, chartCrop, weatherByState]);
 
   if (!events.length) {
@@ -76,7 +83,7 @@ export default function ExtremeEventsChart() {
   return (
     <div className="extreme-cards">
       {events.map((e, i) => {
-        const isNeg = e.deviation_pct < 0;
+        const isNeg = e.regionalAvg < 0;
         return (
           <motion.div
             key={`${e.event}-${e.year}`}
@@ -97,9 +104,12 @@ export default function ExtremeEventsChart() {
             <div className="extreme-stat-row">
               <div className="extreme-stat">
                 <span className={`extreme-stat-val ${isNeg ? 'neg' : 'pos'}`}>
-                  {isNeg ? '' : '+'}{e.deviation_pct.toFixed(1)}%
+                  {isNeg ? '' : '+'}{e.regionalAvg.toFixed(1)}%
                 </span>
-                <span className="extreme-stat-label">Yield Impact</span>
+                <span className="extreme-stat-label">Regional Yield Impact</span>
+                <span className="extreme-stat-label" style={{ fontSize: '0.7rem', opacity: 0.7 }}>
+                  National avg: {e.deviation_pct >= 0 ? '+' : ''}{e.deviation_pct.toFixed(1)}%
+                </span>
               </div>
               <div className="extreme-stat">
                 <span className="extreme-stat-val">{e.avg_yield}</span>
@@ -125,7 +135,7 @@ export default function ExtremeEventsChart() {
               <div
                 className={`extreme-bar-fill ${isNeg ? 'neg' : 'pos'}`}
                 style={{
-                  width: `${Math.min(100, Math.abs(e.deviation_pct) * 3)}%`,
+                  width: `${Math.min(100, Math.abs(e.regionalAvg) * 3)}%`,
                   marginLeft: isNeg ? 'auto' : 0,
                   marginRight: isNeg ? 0 : 'auto',
                 }}
