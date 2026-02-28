@@ -95,9 +95,9 @@ export default function CorrelationChart() {
                 fontSize={11}
                 fontFamily="var(--font-mono)"
                 tickLine={false}
-                angle={-25}
-                textAnchor="end"
-                height={45}
+                angle={0}
+                textAnchor="middle"
+                height={30}
               />
               <YAxis
                 stroke="var(--text-muted)"
@@ -135,9 +135,9 @@ export default function CorrelationChart() {
                 fontSize={11}
                 fontFamily="var(--font-mono)"
                 tickLine={false}
-                angle={-25}
-                textAnchor="end"
-                height={45}
+                angle={0}
+                textAnchor="middle"
+                height={30}
               />
               <YAxis
                 stroke="var(--text-muted)"
