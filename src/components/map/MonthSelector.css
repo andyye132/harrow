@@ -38,43 +38,133 @@
   background: var(--bg-tertiary);
 }
 
-.month-track {
+/* Slider layout */
+.month-slider-wrap {
   display: flex;
-  gap: 1px;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 280px;
 }
 
-.month-btn {
+.month-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2px;
+}
+
+.month-label {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 500;
   color: var(--text-muted);
-  background: transparent;
-  border: none;
-  padding: 5px 7px;
-  border-radius: 14px;
-  cursor: pointer;
-  transition: all var(--transition);
-  position: relative;
+  width: calc(100% / 12);
+  text-align: center;
+  transition: all 0.15s;
 }
 
-.month-btn:hover {
-  color: var(--text-secondary);
+.month-label.active {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 10px;
+}
+
+.month-label.growing {
+  color: var(--success);
+}
+
+.month-label.harvest {
+  color: var(--warning);
+}
+
+.month-label.active.growing,
+.month-label.active.harvest {
+  color: var(--accent);
+}
+
+/* Track wrapper — positions season segments behind the slider */
+.month-slider-track-wrap {
+  position: relative;
+  height: 16px;
+}
+
+.month-slider-seasons {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  height: 4px;
+  display: flex;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.season-seg {
+  flex: 1;
   background: var(--bg-tertiary);
 }
 
-/* Season indicators */
-.month-btn.growing {
-  border-bottom: 2px solid var(--success);
+.season-seg.growing {
+  background: color-mix(in srgb, var(--success) 30%, transparent);
 }
 
-.month-btn.harvest {
-  border-bottom: 2px solid var(--warning);
+.season-seg.harvest {
+  background: color-mix(in srgb, var(--warning) 30%, transparent);
 }
 
-.month-btn.active {
-  color: white;
+/* Range slider styling */
+.month-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 16px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+}
+
+.month-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  background: transparent;
+  border-radius: 2px;
+}
+
+.month-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
   background: var(--accent);
-  border-bottom-color: transparent;
+  border: 2px solid var(--bg-overlay);
+  margin-top: -5px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  transition: transform 0.15s;
+}
+
+.month-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.month-slider::-moz-range-track {
+  height: 4px;
+  background: transparent;
+  border-radius: 2px;
+  border: none;
+}
+
+.month-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg-overlay);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.month-slider::-moz-range-thumb:hover {
+  transform: scale(1.2);
 }
 
 .season-legend {

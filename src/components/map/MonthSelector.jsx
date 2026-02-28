@@ -25,21 +25,39 @@ export default function MonthSelector() {
           ))}
         </div>
 
-        {/* Month buttons */}
-        <div className="month-track">
-          {MONTHS.map((month, i) => {
-            const status = getSeasonStatus(chartCrop, i);
-            return (
-              <button
-                key={i}
-                className={`month-btn ${selectedMonth === i ? 'active' : ''} ${status}`}
-                onClick={() => setSelectedMonth(i)}
-                title={`${month} — ${status}`}
-              >
-                {month.slice(0, 3)}
-              </button>
-            );
-          })}
+        {/* Month slider */}
+        <div className="month-slider-wrap">
+          <div className="month-slider-labels">
+            {MONTHS.map((month, i) => {
+              const status = getSeasonStatus(chartCrop, i);
+              return (
+                <span
+                  key={i}
+                  className={`month-label ${selectedMonth === i ? 'active' : ''} ${status}`}
+                >
+                  {month.slice(0, 3)}
+                </span>
+              );
+            })}
+          </div>
+          <div className="month-slider-track-wrap">
+            {/* Season color segments behind the slider */}
+            <div className="month-slider-seasons">
+              {MONTHS.map((_, i) => {
+                const status = getSeasonStatus(chartCrop, i);
+                return <span key={i} className={`season-seg ${status}`} />;
+              })}
+            </div>
+            <input
+              type="range"
+              className="month-slider"
+              min={0}
+              max={11}
+              step={1}
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(Number(e.target.value))}
+            />
+          </div>
         </div>
 
         {/* Season legend */}
