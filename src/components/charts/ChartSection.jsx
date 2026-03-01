@@ -72,8 +72,8 @@ export default function ChartSection() {
         >
           <h3 className="chart-title">Weather-Yield Correlations</h3>
           <p className="chart-desc">
-            Which weather factors matter most for crop yields? Left: factors that <strong>boost</strong> yield. Right: factors that <em>hurt</em> yield.
-            Taller bar = bigger effect on yield. Based on linear regression across 32 states (2010-2024).
+            How do weather factors affect corn vs soybean yields differently? Each column shows what boosts and hurts that crop.
+            Taller bar = bigger effect. The same weather event can matter a lot for one crop and barely register for another.
           </p>
           <CorrelationChart />
         </motion.div>
