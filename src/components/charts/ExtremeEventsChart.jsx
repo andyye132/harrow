@@ -8,20 +8,24 @@ import './ExtremeEventsChart.css';
 // Historical context for each event
 const EVENT_CONTEXT = {
   'Midwest Drought_2012': {
-    weather: 'Summer 2012 brought the worst drought since the 1930s Dust Bowl. Temperatures exceeded 100°F for weeks across the Corn Belt. Many states saw less than 50% of normal rainfall from June through August, with topsoil moisture ratings plummeting to "very short" across 80% of farmland.',
-    why: 'The drought struck during the critical pollination window for corn (July) and pod-fill for soybeans (August). Extreme heat during tasseling causes pollen death, and prolonged dry conditions prevent kernel fill, leading to massive yield losses across the entire Midwest.',
+    weather: 'The worst drought since the 1930s Dust Bowl. Temperatures exceeded 100°F for weeks across the Corn Belt, with less than 50% of normal rainfall June–August.',
+    why: 'Hit during corn\'s critical pollination window (July) and soybean pod-fill (August). Extreme heat kills pollen during tasseling, and dry conditions prevent kernel fill — a devastating one-two punch.',
+    insight: 'Nebraska and irrigated areas of Kansas held up better than expected — access to the Ogallala Aquifer provided a buffer that dryland states like Indiana and Ohio didn\'t have. This event showed that irrigation infrastructure, not just weather, determines drought resilience.',
   },
   'Midwest Flooding_2019': {
-    weather: 'Historic flooding began in March 2019 when a "bomb cyclone" hit the central US. Rivers across Nebraska, Iowa, and Missouri exceeded record flood levels. Persistent rains through spring delayed planting by weeks — by June, 40% of corn acres were still unplanted, the latest on record.',
-    why: 'Late planting pushes corn growth into shorter days and hotter temperatures, reducing yield potential. Many flooded fields couldn\'t be planted at all, and fields that did get planted had waterlogged soils with poor root development and nitrogen leaching.',
+    weather: 'A "bomb cyclone" in March triggered historic flooding across Nebraska, Iowa, and Missouri. By June, 40% of corn acres were still unplanted — the latest on record.',
+    why: 'Late planting pushes corn growth into shorter days and hotter temps, cutting yield potential. Many flooded fields couldn\'t be planted at all; those that were had waterlogged soils with poor root development.',
+    insight: 'Illinois and Indiana — further from the worst flooding — actually posted decent yields. The event was highly localized along river corridors. States with better drainage infrastructure and higher-elevation fields recovered faster, highlighting how topography matters as much as raw precipitation.',
   },
   'Western Drought / Heat Dome_2021': {
-    weather: 'An unprecedented heat dome parked over the Pacific Northwest in late June 2021, shattering all-time temperature records. Portland hit 116°F. The western US experienced exceptional drought conditions, with reservoir levels at historic lows.',
-    why: 'While the heat dome\'s epicenter was the Pacific Northwest (not the Corn Belt), the broader drought pattern affected western corn and soybean states. States like the Dakotas and Montana saw significant heat stress during critical growth stages.',
+    weather: 'An unprecedented heat dome shattered records in the Pacific Northwest — Portland hit 116°F. Exceptional drought spread across the western US with reservoir levels at historic lows.',
+    why: 'The heat dome\'s epicenter missed the Corn Belt, but the broader drought pattern hit the Dakotas and Montana hard during critical growth stages.',
+    insight: 'This event is interesting because the national average barely moved, masking severe regional damage. North Dakota corn dropped sharply while Iowa and Illinois were largely unaffected — showing how "national" stats can hide localized disasters. States with deep-rooted soil moisture from prior wet years fared better.',
   },
   'Southern Plains Drought_2022': {
-    weather: 'Persistent La Niña conditions brought extreme drought to Texas, Oklahoma, and Kansas. Texas experienced its driest January-August period on record. Temperatures consistently exceeded 100°F through the summer, with some areas receiving less than 25% of normal rainfall.',
-    why: 'The Southern Plains drought hit dryland (non-irrigated) corn especially hard. Without irrigation, crops in these states had no buffer against the relentless heat and dryness. Oklahoma and Texas corn yields dropped to near-total losses in many counties.',
+    weather: 'Persistent La Niña brought extreme drought to Texas, Oklahoma, and Kansas. Texas saw its driest Jan–Aug on record, with temps consistently above 100°F and some areas getting less than 25% of normal rain.',
+    why: 'Dryland (non-irrigated) corn was devastated. Without irrigation, there was zero buffer against relentless heat. Oklahoma and Texas saw near-total losses in many counties.',
+    insight: 'Kansas tells a split story — western Kansas (irrigated from the Ogallala) held steady while eastern Kansas (rainfed) cratered. This drought also explains why Texas is gradually shifting acreage from corn to more drought-tolerant sorghum. The economic incentive to switch crops grows with each drought year.',
   },
 };
 
@@ -93,10 +97,7 @@ export default function ExtremeEventsChart() {
             transition={{ delay: i * 0.06 }}
           >
             <div className="extreme-card-header">
-              <div>
-                <span className="extreme-event-name">{e.event}</span>
-                <span className="extreme-event-crop">{chartCrop === 'corn' ? ' \uD83C\uDF3D' : ' \uD83E\uDED8'}</span>
-              </div>
+              <span className="extreme-event-name">{e.event}</span>
               <span className="extreme-event-year">{e.year}</span>
             </div>
 
@@ -145,8 +146,20 @@ export default function ExtremeEventsChart() {
             {/* Rich description */}
             {e.context.weather && (
               <div className="extreme-context">
-                <p className="extreme-weather-desc">{e.context.weather}</p>
-                <p className="extreme-why-desc">{e.context.why}</p>
+                <div className="extreme-context-block">
+                  <span className="extreme-context-label">What happened</span>
+                  <p className="extreme-weather-desc">{e.context.weather}</p>
+                </div>
+                <div className="extreme-context-block">
+                  <span className="extreme-context-label">Why it mattered</span>
+                  <p className="extreme-why-desc">{e.context.why}</p>
+                </div>
+                {e.context.insight && (
+                  <div className="extreme-context-block">
+                    <span className="extreme-context-label">What stands out</span>
+                    <p className="extreme-insight-desc">{e.context.insight}</p>
+                  </div>
+                )}
               </div>
             )}
 

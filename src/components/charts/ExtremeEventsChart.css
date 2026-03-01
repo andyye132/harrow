@@ -132,24 +132,48 @@
 
 /* Rich context */
 .extreme-context {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin-bottom: 12px;
 }
 
-.extreme-weather-desc {
+.extreme-context-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.extreme-context-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+.extreme-weather-desc,
+.extreme-why-desc,
+.extreme-insight-desc {
   font-size: 12px;
   line-height: 1.6;
   color: var(--text-secondary);
-  margin-bottom: 8px;
+  margin: 0;
 }
 
 .extreme-why-desc {
-  font-size: 12px;
-  line-height: 1.6;
-  color: var(--text-secondary);
+  padding: 8px 10px;
+  background: var(--bg-card);
+  border-left: 3px solid var(--danger);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.extreme-insight-desc {
   padding: 8px 10px;
   background: var(--bg-card);
   border-left: 3px solid var(--accent);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-style: italic;
 }
 
 /* Affected states */
