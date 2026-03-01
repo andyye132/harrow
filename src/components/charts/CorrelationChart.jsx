@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useRef, useCallback } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, Cell, LabelList
@@ -118,6 +118,47 @@ export default function CorrelationChart() {
   );
 }
 
+/** Hook: observe element, return 0→1 progress as it scrolls into view */
+function useGrowIn(threshold = 0.15) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+
+  return { ref, visible };
+}
+
+/** Lerp data values from 0 → actual over time */
+function useAnimatedData(data, visible, duration = 900) {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (!visible) return;
+    const start = performance.now();
+    let raf;
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      // ease-out cubic
+      const eased = 1 - Math.pow(1 - t, 3);
+      setProgress(eased);
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [visible, duration]);
+
+  return data.map(d => ({ ...d, impact: Math.round(d.impact * progress) }));
+}
+
 function CropColumn({ label, data, r2, nObs }) {
   const chartProps = { margin: { top: 20, right: 10, bottom: 5, left: 10 } };
   const xAxisProps = {
@@ -126,8 +167,19 @@ function CropColumn({ label, data, r2, nObs }) {
     textAnchor: 'middle', height: 30,
   };
 
+  const { ref, visible } = useGrowIn(0.2);
+  const animPos = useAnimatedData(data.positive, visible, 1000);
+  const animNeg = useAnimatedData(data.negative, visible, 1200);
+
+  // Keep Y domain fixed to actual max so bars grow into stable axes
+  const maxVal = Math.max(
+    ...data.positive.map(d => d.impact),
+    ...data.negative.map(d => d.impact),
+    10
+  );
+
   return (
-    <div>
+    <div ref={ref}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
         <h4 style={{ fontSize: 16, fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>{label}</h4>
         {r2 != null && (
@@ -143,13 +195,13 @@ function CropColumn({ label, data, r2, nObs }) {
           &#9650; Boosts yield
         </p>
         <ResponsiveContainer width="100%" height={160}>
-          <BarChart data={data.positive} {...chartProps}>
+          <BarChart data={animPos} {...chartProps}>
             <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
             <XAxis {...xAxisProps} />
-            <YAxis hide domain={[0, 'auto']} />
-            <Tooltip content={<CustomTooltip />} />
-            <Bar dataKey="impact" radius={[6, 6, 0, 0]} barSize={36}>
-              <LabelList dataKey="impact" position="top" fontSize={11} fontFamily="var(--font-mono)" fontWeight={700} formatter={(v) => `${v}%`} fill="var(--text-secondary)" />
+            <YAxis hide domain={[0, maxVal * 1.15]} />
+            <Tooltip content={<CustomTooltip data={data.positive} />} />
+            <Bar dataKey="impact" radius={[6, 6, 0, 0]} barSize={36} isAnimationActive={false}>
+              <LabelList dataKey="impact" position="top" fontSize={11} fontFamily="var(--font-mono)" fontWeight={700} formatter={(v) => v > 0 ? `${v}%` : ''} fill="var(--text-secondary)" />
               {data.positive.map((entry, i) => (
                 <Cell key={i} fill="var(--success)" fillOpacity={entry.significant ? 0.85 : 0.35} />
               ))}
@@ -164,13 +216,13 @@ function CropColumn({ label, data, r2, nObs }) {
           &#9660; Hurts yield
         </p>
         <ResponsiveContainer width="100%" height={160}>
-          <BarChart data={data.negative} {...chartProps}>
+          <BarChart data={animNeg} {...chartProps}>
             <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
             <XAxis {...xAxisProps} />
-            <YAxis hide domain={[0, 'auto']} />
-            <Tooltip content={<CustomTooltip />} />
-            <Bar dataKey="impact" radius={[6, 6, 0, 0]} barSize={36}>
-              <LabelList dataKey="impact" position="top" fontSize={11} fontFamily="var(--font-mono)" fontWeight={700} formatter={(v) => `${v}%`} fill="var(--text-secondary)" />
+            <YAxis hide domain={[0, maxVal * 1.15]} />
+            <Tooltip content={<CustomTooltip data={data.negative} />} />
+            <Bar dataKey="impact" radius={[6, 6, 0, 0]} barSize={36} isAnimationActive={false}>
+              <LabelList dataKey="impact" position="top" fontSize={11} fontFamily="var(--font-mono)" fontWeight={700} formatter={(v) => v > 0 ? `${v}%` : ''} fill="var(--text-secondary)" />
               {data.negative.map((entry, i) => (
                 <Cell key={i} fill="var(--danger)" fillOpacity={entry.significant ? 0.85 : 0.35} />
               ))}
@@ -199,10 +251,12 @@ function InsightCard({ title, text, color }) {
   );
 }
 
-function CustomTooltip({ active, payload }) {
+function CustomTooltip({ active, payload, data }) {
   if (!active || !payload?.length) return null;
-  const d = payload[0]?.payload;
-  if (!d) return null;
+  const animated = payload[0]?.payload;
+  if (!animated) return null;
+  // Show real values, not animated ones
+  const d = data?.find(r => r.name === animated.name) || animated;
 
   return (
     <div style={{

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, Legend, ReferenceLine
@@ -6,6 +6,43 @@ import {
 import useStore from '../../store/useStore';
 import { STATE_NAMES } from '../../utils/geoToShape';
 import './CropEconomics.css';
+
+function useGrowIn(threshold = 0.15) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, visible };
+}
+
+function useAnimatedData(data, visible, duration = 1000) {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    if (!visible) return;
+    const start = performance.now();
+    let raf;
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      setProgress(1 - Math.pow(1 - t, 3));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [visible, duration]);
+  return data.map(d => ({
+    ...d,
+    cornProfit: Math.round(d.cornProfit * progress),
+    soyProfit: Math.round(d.soyProfit * progress),
+  }));
+}
 
 // USDA NASS Marketing Year Average Prices ($/bushel)
 // Source: https://quickstats.nass.usda.gov/ — "PRICE RECEIVED, MEASURED IN $ / BU"
@@ -118,6 +155,9 @@ export default function CropEconomics() {
     [...comparisonData].sort((a, b) => b.soyProfit - a.soyProfit).slice(0, 3),
     [comparisonData]
   );
+
+  const { ref: chartRef, visible: chartVisible } = useGrowIn(0.15);
+  const animatedData = useAnimatedData(filteredData, chartVisible, 1100);
 
   if (!natAvg) return null;
 
@@ -236,9 +276,10 @@ export default function CropEconomics() {
         />
       </div>
 
+      <div ref={chartRef} />
       <ResponsiveContainer width="100%" height={340}>
         <BarChart
-          data={filteredData}
+          data={animatedData}
           margin={{ top: 10, right: 10, bottom: 40, left: 10 }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
@@ -276,8 +317,8 @@ export default function CropEconomics() {
             wrapperStyle={{ fontSize: '12px', fontFamily: 'var(--font-mono)', paddingTop: '8px' }}
           />
           <ReferenceLine y={0} stroke="var(--text-muted)" strokeDasharray="3 3" />
-          <Bar dataKey="cornProfit" name="Corn Profit" fill="var(--corn)" fillOpacity={0.85} radius={[4, 4, 0, 0]} barSize={12} />
-          <Bar dataKey="soyProfit" name="Soybean Profit" fill="var(--soy)" fillOpacity={0.85} radius={[4, 4, 0, 0]} barSize={12} />
+          <Bar dataKey="cornProfit" name="Corn Profit" fill="var(--corn)" fillOpacity={0.85} radius={[4, 4, 0, 0]} barSize={12} isAnimationActive={false} />
+          <Bar dataKey="soyProfit" name="Soybean Profit" fill="var(--soy)" fillOpacity={0.85} radius={[4, 4, 0, 0]} barSize={12} isAnimationActive={false} />
         </BarChart>
       </ResponsiveContainer>
 
