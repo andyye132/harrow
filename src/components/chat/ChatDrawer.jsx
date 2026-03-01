@@ -84,7 +84,7 @@ export default function ChatDrawer() {
         err instanceof TypeError || // fetch network failure
         (err.message && /Server responded|Failed to fetch|NetworkError|Empty response/.test(err.message));
       const fallback = isNetworkOrServer
-        ? 'Chat requires the local server. Run `npm run server` alongside the dev server.'
+        ? 'Chat requires the local server. Run `npm run server` (needs GEMINI_API_KEY in .env).'
         : 'Sorry, something went wrong. Please try again.';
       setMessages(prev => [...prev, {
         role: 'assistant',
@@ -158,7 +158,7 @@ export default function ChatDrawer() {
                 <div>
                   <h3 className="chat-header-title">Crop Advisor</h3>
                   <span className="chat-header-sub">
-                    {stateName ? `Focused on ${stateName}` : 'Powered by Claude'}
+                    {stateName ? `Focused on ${stateName}` : 'Powered by Gemini'}
                   </span>
                 </div>
               </div>

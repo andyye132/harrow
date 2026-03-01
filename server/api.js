@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -9,14 +9,9 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '2mb' }));
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-app.post('/api/plant-helper', async (req, res) => {
-  const { state, stateAbbr, crop, plantDate, historicalData, chatHistory, userMessage } = req.body;
-
-  const systemPrompt = `You are an expert agricultural advisor called "Crop Advisor" built into the Harrow platform. You have deep knowledge of US crop production, weather patterns, and farming economics.
+const SYSTEM_PROMPT = `You are an expert agricultural advisor called "Crop Advisor" built into the Harrow platform. You have deep knowledge of US crop production, weather patterns, and farming economics.
 
 Key facts you know:
 - Corn: ~170 bu/acre national avg, $4.50/bu (USDA NASS 2020-24), ~$400/acre operating cost
@@ -27,31 +22,49 @@ Key facts you know:
 
 Be concise, practical, and friendly. Use numbers and data. Format with **bold** for key terms. Keep responses under 200 words unless the question requires more detail.`;
 
+app.post('/api/plant-helper', async (req, res) => {
+  const { state, stateAbbr, crop, plantDate, historicalData, chatHistory, userMessage } = req.body;
+
   const historicalContext = historicalData
-    ? `\n\nHistorical yield data for ${state}:
-${JSON.stringify(historicalData, null, 2)}`
+    ? `\n\nHistorical yield data for ${state}:\n${JSON.stringify(historicalData, null, 2)}`
     : '';
 
   try {
-    // Build messages array — support chat history
-    let messages;
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-2.0-flash',
+      systemInstruction: SYSTEM_PROMPT,
+    });
+
+    let result;
+
     if (chatHistory && chatHistory.length > 0) {
-      // Use chat history, injecting context into the first user message
-      messages = chatHistory.map((msg, i) => ({
-        role: msg.role,
-        content: i === 0 && msg.role === 'user'
-          ? `[Context: User is looking at ${state || 'the US map'}.${historicalContext}]\n\n${msg.content}`
-          : msg.content,
-      }));
-      // Add the latest user message
-      if (userMessage) {
-        messages.push({ role: 'user', content: userMessage });
+      // Build Gemini history — convert 'assistant' → 'model'
+      const allMessages = [...chatHistory];
+      if (allMessages.length > 0 && allMessages[0].role === 'user') {
+        allMessages[0] = {
+          ...allMessages[0],
+          content: `[Context: User is looking at ${state || 'the US map'}.${historicalContext}]\n\n${allMessages[0].content}`,
+        };
       }
+
+      const geminiHistory = [];
+      for (const msg of allMessages) {
+        const role = msg.role === 'assistant' ? 'model' : 'user';
+        if (geminiHistory.length > 0 && geminiHistory[geminiHistory.length - 1].role === role) {
+          geminiHistory[geminiHistory.length - 1].parts[0].text += '\n' + msg.content;
+        } else {
+          geminiHistory.push({ role, parts: [{ text: msg.content }] });
+        }
+      }
+      if (geminiHistory.length > 0 && geminiHistory[0].role !== 'user') {
+        geminiHistory.shift();
+      }
+
+      const chat = model.startChat({ history: geminiHistory });
+      result = await chat.sendMessage(userMessage || '');
     } else {
-      // Legacy single-shot mode
-      messages = [{
-        role: 'user',
-        content: `A farmer in ${state} (${stateAbbr}) wants to plant ${crop} around ${plantDate}.
+      result = await model.generateContent(
+        `A farmer in ${state} (${stateAbbr}) wants to plant ${crop} around ${plantDate}.
 ${historicalContext}
 
 Please provide:
@@ -59,35 +72,12 @@ Please provide:
 2. HISTORICAL PERFORMANCE: Summarize how ${crop} has performed in ${state}.
 3. WEATHER RISKS: Key weather risks for planting ${crop} around ${plantDate}.
 4. PRACTICAL ADVICE: 2-3 actionable tips for maximizing yield.`
-      }];
+      );
     }
 
-    // Ensure messages alternate correctly (Claude requires user/assistant alternation)
-    const cleanMessages = [];
-    for (const msg of messages) {
-      if (cleanMessages.length > 0 && cleanMessages[cleanMessages.length - 1].role === msg.role) {
-        // Merge consecutive same-role messages
-        cleanMessages[cleanMessages.length - 1].content += '\n' + msg.content;
-      } else {
-        cleanMessages.push({ ...msg });
-      }
-    }
-
-    // Ensure first message is from user
-    if (cleanMessages.length > 0 && cleanMessages[0].role !== 'user') {
-      cleanMessages.shift();
-    }
-
-    const message = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1024,
-      system: systemPrompt,
-      messages: cleanMessages,
-    });
-
-    res.json({ response: message.content[0].text });
+    res.json({ response: result.response.text() });
   } catch (err) {
-    console.error('Claude API error:', err);
+    console.error('Gemini API error:', err);
     res.status(500).json({ error: 'Failed to get insights', details: err.message });
   }
 });
